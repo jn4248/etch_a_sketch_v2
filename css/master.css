@@ -1,0 +1,41 @@
+
+html, body {
+  /*font-size: 13px;*/
+  /*font-family: Roboto, Arial, sans-serif;*/
+  /*min-width: 1000px;*/
+}
+
+/*
+ *  note
+ */
+.tiles-container {
+  border: 2em solid rgb(0, 204, 20);
+  background-color: rgb(156, 192, 247);
+  padding: 2em;
+  display: inline-block;
+}
+/* prevent collapse around children*/
+.tiles-container::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.tile {
+  height: 1em;
+  width: 1em;
+  border: 1px solid rgb(0, 0, 0);
+  background-color: rgb(239, 184, 244);
+  /*margin: 0.5em;*/
+  float: left;
+}
+.left-tile {
+  /*background-color: rgb(213, 0, 0);*/
+  clear: left;
+}
+.highlighted {
+  background-color: rgb(1, 53, 210);
+}
+.eraseButton {
+  margin: 2em;
+  padding: 0.5em;
+}
