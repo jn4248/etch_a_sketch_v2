@@ -2,11 +2,15 @@
 
 $(document).ready(function() {
 
-  let numberRows = 50;
-  let numberCols = 50;
+  let mouseStillDown = false;
+  let eraseOn = false;
 
-  for (let row = 0; row < numberRows; row++) {
-    for (let col = 0; col < numberCols; col++) {
+  const gridSize = 10;
+
+
+  // Build Grid system of tiles to draw with
+  for (let row = 0; row < gridSize; row++) {
+    for (let col = 0; col < gridSize; col++) {
       let newTile = $('<div></div>').addClass('tile');
       if (col === 0) {
         newTile.addClass('left-tile');
@@ -15,91 +19,76 @@ $(document).ready(function() {
     }
   }
 
-  var eraseOn = false;
 
-  $('.tile').hover(
-      function() {
-        if (eraseOn === false) {
-          $(this).addClass('highlighted');
-        } else {
-          $(this).removeClass('highlighted');
-        }
-      }, function() {
-        if (eraseOn === false) {
-          $(this).addClass('highlighted');
-        } else {
-          $(this).removeClass('highlighted');
-        }
-      }
-  );
 
+  // button to toggle "erase" on/off
   $('.eraseButton').mousedown(function() {
     if (eraseOn === true) {
       eraseOn = false;
     } else {
       eraseOn = true;
     }
-  })
+    console.log("erase: " + eraseOn);
+  });
 
 
-/*  function highlightTile(curTile) {
-//    if (!curTile.hasClass('highlighted')) {
-//    curTile.addClass('highlighted');
-//  }
-  curTile.addClass('highlighted');
-}*/
+  function drawOnTile(currentTile) {
+    // erase tile if erase button is activated
+    if ((eraseOn === true) && (currentTile.hasClass('highlighted') === true)) {
+      currentTile.removeClass('highlighted');
+      console.log("tile erased.  eraseOn:" + eraseOn);
+    }
+    // highlight tile if erase button is not activated
+    if ((eraseOn === false) && (currentTile.hasClass('highlighted') === false)) {
+      currentTile.addClass('highlighted');
+      console.log("tile Highlighted.  eraseOn:" + eraseOn);
+    }
+  }
 
-
-
-////////////////////////////////////////////////////////////////////
-/*
-  let mouseStillDown = false;
-
+  // draw by either "highlighting" or "erasing" when clicking a tile
   $('.tile').mousedown(function() {
     mouseStillDown = true;
-    console.log("M-down");
-    tile = $(this);
-    traceTiles(tile);
+    console.log("M-down  ---  mouseStillDown: " + mouseStillDown);
+    curTile = $(this);
+    drawOnTile(curTile);
   });
 
-  $('document').mouseup(function() {
+  $(document).mouseup(function() {
     mouseStillDown = false;
-    console.log("M-UP");
+    console.log("M-UP    ---  mouseStillDown: " + mouseStillDown);
   });
 
-  function traceTiles(curTile) {
-    if (!mouseStillDown) {
-      return;
-    }
-    // action to do
-    highlightTile(curTile);
-
+  $('.tile').mouseenter(function() {
     if (mouseStillDown) {
-    //clearInterval();
-    console.log("TT_if_MDown");
-    setInterval("traceTiles", 1000);
-    // ******* did console.log here, but hten ran into error...
-    //         not clearing? happen before or after setInterval??
-    //         try a few more console logs to pipoint where fails
-    //         error logs to the console in dev_tools in browser
+      console.log("M-enter -- mouseStillDown: " + mouseStillDown + "   eraseOn: " + eraseOn);
+      drawOnTile($(this));
+    }
+  });
+
+
+});  //end of ready()
+
+
+/////////////////////////////////////////////////////////////////////
+// EXTRA CODE REMNANTS - tried and no longer using
+/////////////////////////////////////////////////////////////////////
+
+/*
+$('.tile').hover(
+  function() {
+    if (eraseOn === false) {
+      $(this).addClass('highlighted');
+    } else {
+      $(this).removeClass('highlighted');
+    }
+  }, function() {
+    if (eraseOn === false) {
+      $(this).addClass('highlighted');
+    } else {
+      $(this).removeClass('highlighted');
     }
   }
+);
 */
 
-/////////////////////////////////
-
-/*// backup copy (modified above)
-  function traceTiles(curTile) {
-    mDown = true;
-    while (mDown) {
-      highlightTile(curTile);
-      $(document).mouseup(function() {
-        mDown = false;
-      })mouseStillDown
-    }
-  }
-*/
-
-////////////////////////////////////////////////////////////////////
-
-});
+/////////////////////////////////////////////////////////////////////
