@@ -5,10 +5,8 @@ $(document).ready(function() {
   let mouseStillDown = false;
   let eraseOn = false;
 
-  const tileGridSize = 20;
+  const tileGridSize = 60;
 
-createGrid1();
-createGrid2();
 
 /////////////////////////////////////////////////////////////////////
 
@@ -16,7 +14,7 @@ createGrid2();
   function createGrid1() {
     //create grid, and a frame in which to center the grid
     let grid1Frame = $('<div></div>').addClass('grid-frame');
-    //grid1Frame.hide();
+    grid1Frame.hide();
     let grid1 = $('<div></div').addClass('tiles-container');
     grid1Frame.append(grid1);
     $('#js-gridsContainer').append(grid1Frame);
@@ -32,8 +30,8 @@ createGrid2();
     }
     let grid1Description = $('<p> Method 1: This Tile Grid was created by adding each tile individually over two for-loops.  It is noticeably slower than Method 2 when there are more than 50 rows and columns.</p>');
     grid1Frame.prepend(grid1Description);
-    // grid1Frame.fadeIn(0);
-    //grid1Frame.show();
+    grid1Frame.fadeIn(2000);
+    // grid1Frame.show();
   }
 
   // Build Grid system of tiles to draw with - Method 2
@@ -59,14 +57,16 @@ createGrid2();
     }
     let grid2Description = $('<p> Method 2: This Tile Grid was created using a for-loop to build a template row, and then cloning the template row for each required row.  It is noticeably faster than Method 1 when there are more than 50 rows and columns.</p>');
     grid2Frame.prepend(grid2Description);
-    // grid2Frame.fadeIn(0);
-    grid2Frame.show();
+    grid2Frame.fadeIn(2000);
+    // grid2Frame.show();
   }
 
 /////////////////////////////////////////////////////////////////////
 
+// note - no object available, for grids, to call fadeIn() on....PROBLEM
+
   // buttons to create the main drawing grid 1
-  $('#js-runGrid1Button').mousedown(function() {
+  $('#js-runGrid1Button').on('click', function() {
     if ($(this).data('clicked') === false) {
       createGrid1();
       $(this).data('clicked', 'true');
@@ -76,7 +76,7 @@ createGrid2();
   });
 
   // buttons to create the main drawing grid 1
-  $('#js-runGrid2Button').mousedown(function() {
+  $('#js-runGrid2Button').on('click', function() {
     if ($(this).data('clicked') === false) {
       createGrid2();
       $(this).data('clicked', 'true');
@@ -86,13 +86,11 @@ createGrid2();
   });
 
   // button to toggle "erase" on/off
-   $('#js-eraseButton').mousedown(function() {
+   $('#js-eraseButton').on('click', function() {
     if (eraseOn === true) {
       eraseOn = false;
-      console.log('eraseOn turned to:' + eraseOn);
     } else {
       eraseOn = true;
-      console.log('eraseOn turned to:' + eraseOn);
     }
   });
 
@@ -108,37 +106,39 @@ createGrid2();
     }
   }
 
-  // draw by either "highlighting" or "erasing" when clicking a tile
-  $('.tile').mousedown(function() {
-    alert('mousedown');
-    console.log('mouse DOWN ran');
-    console.log('mouseStillDown began:' + mouseStillDown);
-    mouseStillDown = true;
-    console.log('mouseStillDown changed to: ' + mouseStillDown);
+/////////////////////////////////////////////////////////////////////
+// redoing below BU using event propagation and preventdefault to
+// stop mouseup/down PROBLEM
+
+// draw by either "highlighting" or "erasing" when clicking a tile
+$('#js-gridsContainer').on('mousedown', '.tile', function(event) {
+  event.preventDefault();
+  mouseStillDown = true;
+  drawOnTile($(this));
+});
+
+$(document).on('mouseup', function(event) {
+  event.preventDefault();
+  mouseStillDown = false;
+});
+
+// option 1 - mouseenter instead of mousemove  (this one worked intially)
+$('#js-gridsContainer').on('mouseenter', '.tile', function(event) {
+  event.preventDefault();
+  if (mouseStillDown) {
     drawOnTile($(this));
-    console.log('drawOnTile function called');
-  });
+  }
+});
 
-  $(document).mouseup(function() {
-    console.log("mouse UP ran");
-    console.log("mouseStillDown:" + mouseStillDown);
-    mouseStillDown = false;
-    console.log('mouseStillDown changed to: ' + mouseStillDown);
-  });
+// option 1 - mousemove instead of mouseenter (tried later...yet to try)
+// $('#js-gridsContainer').on('mousemove', '.tile', function(event) {
+//   event.preventDefault();
+//   if (mouseStillDown) {
+//     drawOnTile($(this));
+//   }
+// });
 
-  // option 1 - mouseenter instead of mousemove  (this one worked intially)
-  // $('.tile').mouseenter(function() {
-  //   if (mouseStillDown) {
-  //     drawOnTile($(this));
-  //   }
-  // });
-
-  // option 1 - mousemove instead of mouseenter (tried later...yet to try)
-  // $('.tile').mouseenter(function() {
-  //   if (mouseStillDown) {
-  //     drawOnTile($(this));
-  //   }
-  // });
+/////////////////////////////////////////////////////////////////////
 
 
 
