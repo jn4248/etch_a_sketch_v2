@@ -10,18 +10,13 @@
   </head>
 
   <body>
-    <div>
-      <button class="eraseButton" type="button" name="erase">Click to toggle draw and erase</button>
+    <div id="js-control-panel-top" class="control-panel">
+      <button id="js-eraseButton" class="button button-option" type="button">Click to toggle draw and erase</button>
+      <button id="js-runGrid1Button" class="button button-run" type="button" data-clicked="false">Run Grid 1</button>
+      <button id="js-runGrid2Button" class="button button-run" type="button" data-clicked="false">Run Grid 2</button>
     </div>
-    <div class="tiles-container">
-      <!--<p>Test Paragraph</p>-->
+    <div id="js-gridsContainer">
     </div>
-
-    <!--  CREATE A SECOND VERSION HERE - USING inline-block STYLING ON TILES -->
-
-
-    <!--  CREATE A THIRD VERSION HERE - USING A table TO CREATE THE TILES -->
-
 
 
     <script src="scripts/main.js"></script>
