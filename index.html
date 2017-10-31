@@ -4,18 +4,38 @@
     <meta charset="utf-8">
     <title>Title</title>
     <link href="css/normalize-necolas.css" rel="stylesheet" type="text/css">
+    <!--<link href="css/reset-meyer.css" rel="stylesheet" type="text/css">-->
     <link href="css/master.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" type="text/css" rel="stylesheet" >
     <script src="scripts/jquery-3.2.1.js"></script>
   </head>
 
   <body>
-    <div id="js-control-panel-top" class="control-panel">
-      <button id="js-eraseButton" class="button button-option" type="button">Click to toggle draw and erase</button>
-      <button id="js-runGrid1Button" class="button button-run" type="button" data-clicked="false">Run Grid 1</button>
-      <button id="js-runGrid2Button" class="button button-run" type="button" data-clicked="false">Run Grid 2</button>
+    <header class="instructions-panel control-panel">
+      <h1>Etch-a-Sketch Drawing Pad</h1>
+      <p>The drawing canvas can be created using either of two methods:</p>
+      <p>Method 1: The grid of tiles is created by adding each tile individually over two for-loops.</p>
+      <p>Method 2: The grid of tiles is created using a for-loop to build a template row, and then cloning the template to build each additional row.</p>
+      <p>While both methods produce a result with the same functionality, method 2 contructs the canva noticeably faster than Method 1 when there are more than 50 rows and columns.</p>
+    </header>
+    <div id="js-control-panel-top" class="control-panel-top control-panel centered-content">
+      <button id="js-eraseButton" class="button-control" type="button">Toggle draw and erase</button>
+      <button id="js-runGrid1Button" class="button-control" type="button" data-clicked="false">Run Grid 1</button>
+      <button id="js-runGrid2Button" class="button-control" type="button" data-clicked="false">Run Grid 2</button>
     </div>
-    <div id="js-gridsContainer">
+
+
+    <div class="control-panel-left control-panel centered-content">
+<!--      <div class="button-color highlighted-red"></div>
+      <div class="button-color highlighted-blue"></div>
+      <div class="button-color highlighted-white"></div>-->
+      <button class="button-color highlighted-red" type="button" name="select-red"></button>
+      <button class="button-color highlighted-blue" type="button" name="select-blue"></button>
+      <button class="button-color highlighted-white" type="button" name="select-white"></button>
+
+    </div>
+
+    <div id="js-gridsContainer" class="container-grid centered-content">
     </div>
 
 

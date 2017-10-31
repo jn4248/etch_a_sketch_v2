@@ -13,7 +13,7 @@ $(document).ready(function() {
   // Build Grid system of tiles to draw with - Method 1
   function createGrid1() {
     //create grid, and a frame in which to center the grid
-    let grid1Frame = $('<div></div>').addClass('grid-frame');
+    let grid1Frame = $('<div></div>').addClass('centered-content');
     grid1Frame.hide();
     let grid1 = $('<div></div').addClass('tiles-container');
     grid1Frame.append(grid1);
@@ -28,16 +28,14 @@ $(document).ready(function() {
         grid1.append(newTile);
       }
     }
-    let grid1Description = $('<p> Method 1: This Tile Grid was created by adding each tile individually over two for-loops.  It is noticeably slower than Method 2 when there are more than 50 rows and columns.</p>');
-    grid1Frame.prepend(grid1Description);
-    grid1Frame.fadeIn(2000);
-    // grid1Frame.show();
+    // grid1Frame.fadeIn(2000);
+    grid1Frame.show();
   }
 
   // Build Grid system of tiles to draw with - Method 2
   function createGrid2() {
     //create grid, and a frame in which to center the grid
-    let grid2Frame = $('<div></div>').addClass('grid-frame');
+    let grid2Frame = $('<div></div>').addClass('centered-content');
     grid2Frame.hide();
     let grid2 = $('<div></div').addClass('tiles-container');
     grid2Frame.append(grid2);
@@ -55,10 +53,8 @@ $(document).ready(function() {
     for (let j = 0; j < tileGridSize; j++) {
       grid2.append(rowTemplate.clone());
     }
-    let grid2Description = $('<p> Method 2: This Tile Grid was created using a for-loop to build a template row, and then cloning the template row for each required row.  It is noticeably faster than Method 1 when there are more than 50 rows and columns.</p>');
-    grid2Frame.prepend(grid2Description);
-    grid2Frame.fadeIn(2000);
-    // grid2Frame.show();
+    // grid2Frame.fadeIn(2000);
+    grid2Frame.show();
   }
 
 /////////////////////////////////////////////////////////////////////
