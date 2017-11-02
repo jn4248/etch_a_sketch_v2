@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Title</title>
-    <link href="css/normalize-necolas.css" rel="stylesheet" type="text/css">
+    <!-- <link href="css/normalize-necolas.css" rel="stylesheet" type="text/css"> -->
     <!--<link href="css/reset-meyer.css" rel="stylesheet" type="text/css">-->
     <link href="css/master.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" type="text/css" rel="stylesheet" >
@@ -20,22 +20,18 @@
     </header>
     <div id="js-control-panel-top" class="control-panel-top control-panel centered-content">
       <button id="js-eraseButton" class="button-control" type="button">Toggle draw and erase</button>
-      <button id="js-runGrid1Button" class="button-control" type="button" data-clicked="false">Run Grid 1</button>
-      <button id="js-runGrid2Button" class="button-control" type="button" data-clicked="false">Run Grid 2</button>
+      <button id="js-runGridButton" class="button-control" type="button" data-clicked="false">Display Drawing Grid</button>
     </div>
 
 
     <div class="control-panel-left control-panel centered-content">
-<!--      <div class="button-color highlighted-red"></div>
-      <div class="button-color highlighted-blue"></div>
-      <div class="button-color highlighted-white"></div>-->
       <button class="button-color highlighted-red" type="button" name="select-red"></button>
       <button class="button-color highlighted-blue" type="button" name="select-blue"></button>
       <button class="button-color highlighted-white" type="button" name="select-white"></button>
 
     </div>
 
-    <div id="js-gridsContainer" class="container-grid centered-content">
+    <div id="js-gridContainer" class="container-grid">
     </div>
 
 
