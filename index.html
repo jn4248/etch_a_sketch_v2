@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Title</title>
-    <!-- <link href="css/normalize-necolas.css" rel="stylesheet" type="text/css"> -->
+    <link href="css/normalize-necolas.css" rel="stylesheet" type="text/css">
     <!--<link href="css/reset-meyer.css" rel="stylesheet" type="text/css">-->
     <link href="css/master.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" type="text/css" rel="stylesheet" >
@@ -19,15 +19,17 @@
       <p>While both methods produce a result with the same functionality, method 2 contructs the canva noticeably faster than Method 1 when there are more than 50 rows and columns.</p>
     </header>
     <div id="js-control-panel-top" class="control-panel-top control-panel centered-content">
+      <button id="js-createGridButton" class="button-control" type="button" data-clicked="false">Create Drawing Canvas</button>
+      <button id="js-resetGridButton" class="button-control" type="button">Reset Canvas (and set size)</button>
+      <button id="js-clearGridButton" class="button-control" type="button">Clear Canvas</button>
       <button id="js-eraseButton" class="button-control" type="button">Toggle draw and erase</button>
-      <button id="js-runGridButton" class="button-control" type="button" data-clicked="false">Display Drawing Grid</button>
     </div>
 
 
     <div class="control-panel-left control-panel centered-content">
-      <button class="button-color highlighted-red" type="button" name="select-red"></button>
-      <button class="button-color highlighted-blue" type="button" name="select-blue"></button>
-      <button class="button-color highlighted-white" type="button" name="select-white"></button>
+      <button class="button-color highlighted-red button-color-selected" type="button" name="red"></button>
+      <button class="button-color highlighted-blue" type="button" name="blue"></button>
+      <button class="button-color highlighted-white" type="button" name="white"></button>
 
     </div>
 
