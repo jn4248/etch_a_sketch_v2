@@ -4,9 +4,31 @@ $(document).ready(function() {
 
   let mouseStillDown = false;  // keeps track of mousebutton position for drawing
   let eraseOn = false;         // tracks toggle state of 'erase' button
-  // let colorChoices = ['red', 'blue', 'white', 'default'];
-  // console.log('color choices array is:');
-  // console.log(colorChoices);
+
+
+  let availableColors = ['White', 'Yellow', 'Orange', 'Pink', 'Red', 'LightBlue', 'Blue', 'LawnGreen', 'Green', 'RebeccaPurple', 'SaddleBrown', 'LightGrey','Grey', 'default'];
+  console.log('color choices array is:');
+  console.log(availableColors);
+  createColorButtons(availableColors);
+
+
+  // Create color selection buttons based on array of html named colors
+  // Will dynamically create HTML buttons, but css classes must already exist manually
+  function createColorButtons(colorArray) {
+    colorPanel = $('#js-control-panel-left');
+    for (let j = 0; j < colorArray.length; j++) {
+      newColorButton = $('<button type="button"></button>');
+      console.log('adding next color: ' + colorArray[j]);
+      newColorButton.attr('name', colorArray[j]);
+      newColorClass = 'highlighted-' + colorArray[j];
+      newColorButton.addClass(newColorClass);
+      newColorButton.addClass('button-color');
+      if (j === 0) {
+        newColorButton.addClass('button-color-selected');
+      }
+      colorPanel.append(newColorButton);
+    }
+  }
 
 /////////////////////////////////////////////////////////////////////
 // asks user for a positive integer.  Checks, and repeats prompt until:
@@ -17,22 +39,17 @@ function promptGridSize() {
   let invalidInput = true;
   let answer = prompt('Please enter the number of rows/columns, as a positive integer:', '2');
   let gridSize = parseFloat(answer);
-  // console.log('size entered: ' + gridSize);
   while (invalidInput) {
     if ((answer === null) || (answer === "")) {
       gridSize = -1;
       invalidInput = false;
-      // console.log('prompt - canceled');
       return gridSize;
     } else if ((typeof gridSize === 'number') && (gridSize % 1 === 0) && (gridSize > 0)) {
       invalidInput = false;
-      // console.log('prompt - good answer: ' + gridSize);
       return gridSize;
     } else {
-      // console.log('prompt - BAD answer: ' + gridSize);
       answer = prompt('Incorrect format entered.  Please enter the number of rows/columns, as a positive integer:', '2');
       gridSize = parseFloat(answer);
-      // console.log('new size entered: ' + gridSize);
     }
   }
 }
@@ -44,7 +61,7 @@ function promptGridSize() {
   function createGrid() {
     //prompt user for number of rows/columns
     let gridSize = promptGridSize();
-    //let gridSize = 80;
+    //let gridSize = 80;   // alt way for debug instead of using promptGridSize()
 
     // create the drawing grid of tiles.
     // Does not create grid if user entered an empty string, or canceled the prompt
@@ -124,44 +141,14 @@ function promptGridSize() {
   // note: if no color name is found, sets tile to default color.
   function removeTileColor(currentTile) {
     currentColor = currentTile.data('color');
-    switch (currentColor) {
-      case 'red':
-        currentTile.removeClass('highlighted-red')
-        console.log('removed color: ' + currentColor);
-        break;
-      case 'blue':
-        currentTile.removeClass('highlighted-blue')
-        console.log('removed color: ' + currentColor);
-        break;
-      case 'white':
-        currentTile.removeClass('highlighted-white')
-        console.log('removed color: ' + currentColor);
-        break;
-      default:
-        currentTile.removeClass('highlighted-default');
-        console.log('default case - removed color: default');
-    }
+    currentColorClass = 'highlighted-' + currentColor;
+    currentTile.removeClass(currentColorClass);
   }
 
   // change the highlighted color of a grid Tile
   function highlightTile(currentTile, color) {
-    switch (color) {
-      case 'red':
-        currentTile.addClass('highlighted-red')
-        console.log('set color: ' + color);
-        break;
-      case 'blue':
-        currentTile.addClass('highlighted-blue')
-        console.log('set color: ' + color);
-        break;
-      case 'white':
-        currentTile.addClass('highlighted-white')
-        console.log('set color: ' + color);
-        break;
-      default:
-        currentTile.addClass('highlighted-default');
-        console.log('default case - set color default');
-    }
+    newColorClass = 'highlighted-' + color;
+    currentTile.addClass(newColorClass);
   }
 
   // button to set drawing color (highlights the button also)

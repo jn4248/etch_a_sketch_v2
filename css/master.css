@@ -102,18 +102,6 @@ body {
   text-align: center;
 }
 
-.highlighted-red {
-  background-color: red;
-}
-.highlighted-blue {
-  background-color: blue;
-}
-.highlighted-white {
-  background-color: white;
-}
-.highlighted-default {
-  background-color: black;
-}
 .button-color {
   height: 2em;
   width: 2em;
@@ -135,3 +123,51 @@ body {
   display: table;
   clear: both;
 }*/
+
+/**
+  *   Color Classes for highlighting tiles
+  */
+
+.highlighted-default {
+    background-color: black;
+}
+
+.highlighted-White {
+    background-color: white;
+}
+.highlighted-Yellow {
+    background-color: Yellow;
+}
+.highlighted-Orange {
+    background-color: Orange;
+}
+.highlighted-Pink {
+  background-color: Pink;
+}
+.highlighted-Red {
+  background-color: Red;
+}
+.highlighted-LightBlue {
+  background-color: LightBlue;
+}
+.highlighted-Blue {
+  background-color: Blue;
+}
+.highlighted-LawnGreen {
+  background-color: LawnGreen;
+}
+.highlighted-Green {
+  background-color: Green;
+}
+.highlighted-RebeccaPurple {
+  background-color: RebeccaPurple;
+}
+.highlighted-SaddleBrown {
+  background-color: SaddleBrown;
+}
+.highlighted-LightGrey {
+  background-color: LightGrey;
+}
+.highlighted-Grey {
+  background-color: Grey;
+}
