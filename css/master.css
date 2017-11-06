@@ -1,14 +1,14 @@
 
-html {
+html, body {
   /*font-size: 13px;*/
   /*font-family: Roboto, Arial, sans-serif;*/
   min-width: 1080px;
 }
 
-body {
+/*body {
   min-width: 1080px;
   /*background-image: url("images/beach.jpg");*/
-}
+}*/
 * {
   box-sizing: border-box;
 }
@@ -60,33 +60,27 @@ body {
 }
 .tiles-container {
   height: 100%;
-  background-color: rgb(156, 192, 247);
+  /*background-color: darkorange;*/
   border: 1em solid rgb(0, 204, 20);
   /*padding: 1em;
   margin: 1em;
   display: inline-block;*/
   display: grid;
-  grid-template-rows: repeat(var(--numRows), 1fr);    /* auto or 1fr*/
-  grid-template-columns: repeat(var(--numColumns), 1fr); /* auto or 1fr*/
+  grid-template-rows: repeat(var(--numRows), auto);    /* auto or 1fr*/
+  grid-template-columns: repeat(var(--numColumns), auto); /* auto or 1fr*/
   grid-gap: 0;
 }
-/* prevent collapse around children*/
-/*.tiles-container::after {
+
+/*.row-container {
+  border: 1em solid rgb(114, 0, 204);
+  background-color: rgb(0, 176, 165);
+}*/
+/*.row-container::after {
   content: "";
   display: table;
   clear: both;
 }*/
-.row-container {
-  /*border: 1em solid rgb(114, 0, 204);*/
-  background-color: rgb(0, 176, 165);
-}
-.row-container::after {
-  content: "";
-  display: table;
-  clear: both;
-}
 .tile {
-  color: black;
   grid-column-start: auto;
   grid-row-start: auto;
   /*height: 0.5em;*/
@@ -95,26 +89,22 @@ body {
   /*background-color: rgb(239, 184, 244);*/
   /*float: left;*/
 }
-/* prevent collapse around children*/
-/*.tile::after {
-  content: "";
-  display: table;
-  clear: both;
-}*/
-.left-tile {
+
+/*.left-tile {
   background-color: rgb(213, 0, 0);
   clear: left;
-}
-.grid-frame {
+}*/
+/*.grid-frame {
   text-align: center;
-}
+}*/
 
 .button-color {
   height: 2.5em;
   width: 2.5em;
-  margin: 0.5em;
+  margin: 1em auto;
   border: 1px solid rgb(0, 0, 0);
   border-radius: 1.25em;
+  display: block;
 }
 .button-color-selected {
   border: 3px solid silver;
@@ -128,49 +118,45 @@ body {
   *   Color Classes for highlighting tiles
   */
 
-.highlighted-Default {
-    background-color: Black;
+.highlighted-white {
+    background-color: white;
 }
-
-.highlighted-White {
-    background-color: White;
+.highlighted-yellow {
+    background-color: yellow;
 }
-.highlighted-Yellow {
-    background-color: Yellow;
+.highlighted-orange {
+    background-color: orange;
 }
-.highlighted-Orange {
-    background-color: Orange;
+.highlighted-pink {
+  background-color: pink;
 }
-.highlighted-Pink {
-  background-color: Pink;
+.highlighted-red {
+  background-color: red;
 }
-.highlighted-Red {
-  background-color: Red;
+.highlighted-lightblue {
+  background-color: lightblue;
 }
-.highlighted-LightBlue {
-  background-color: LightBlue;
+.highlighted-blue {
+  background-color: blue;
 }
-.highlighted-Blue {
-  background-color: Blue;
+.highlighted-lawngreen {
+  background-color: lawngreen;
 }
-.highlighted-LawnGreen {
-  background-color: LawnGreen;
+.highlighted-green {
+  background-color: green;
 }
-.highlighted-Green {
-  background-color: Green;
+.highlighted-rebeccapurple {
+  background-color: rebeccapurple;
 }
-.highlighted-RebeccaPurple {
-  background-color: RebeccaPurple;
+.highlighted-saddlebrown {
+  background-color: saddlebrown;
 }
-.highlighted-SaddleBrown {
-  background-color: SaddleBrown;
+.highlighted-lightgrey {
+  background-color: lightgrey;
 }
-.highlighted-LightGrey {
-  background-color: LightGrey;
+.highlighted-grey {
+  background-color: grey;
 }
-.highlighted-Grey {
-  background-color: Grey;
-}
-.highlighted-Black {
-  background-color: Black;
+.highlighted-black {
+  background-color: black;
 }
