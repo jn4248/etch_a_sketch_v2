@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <header class="instructions-panel control-panel">
+    <header class="instructions-panel control-panel instructions">
       <h1>Etch-a-Sketch Drawing Pad</h1>
       <p>The drawing canvas can be created using either of two methods:</p>
       <p>Method 1: The grid of tiles is created by adding each tile individually over two for-loops.</p>
@@ -22,21 +22,21 @@
       <button id="js-createGridButton" class="button-control" type="button" data-clicked="false">Create Drawing Canvas</button>
       <button id="js-resetGridButton" class="button-control" type="button">Reset Canvas (and set size)</button>
       <button id="js-clearGridButton" class="button-control" type="button">Clear Canvas</button>
-      <button id="js-eraseButton" class="button-control" type="button">Toggle draw and erase</button>
-      <button id="js-setDefaultColorButton" class="button-control" type="button">Set Canvas default Color <br> (open / close menu)</button>
+      <button id="js-eraseButton" class="button-control" type="button">Erase On/Off</button>
+      <button id="js-setDefaultColorButton" class="button-control" type="button">Set Canvas default Color <br> (open/close menu)</button>
     </div>
 
 
     <div id="js-control-panel-left" class="control-panel-left control-panel centered-content">
-      <p>Select Color to Draw With</p>
-      <!-- Buttons for Color Selection are created dynamically via JavaScript using method createColorButtons -->
+      <p class="instructions">Select Drawing Color</p>
+      <!-- Buttons for Color Selection are created dynamically via JavaScript with createColorButtons() -->
     </div>
 
     <div id="js-gridContainer" class="container-grid">
-      <!-- <div id="js-control-panel-right" class="control-panel-right control-panel centered-content"> -->
-        <!-- <p>Select the Default Canvas Color</p> -->
-        <!-- Buttons for Default Color Selection are created dynamically via JavaScript using method createColorButtons -->
-      <!-- </div> -->
+      <div id="js-control-panel-right" class="control-panel-right control-panel centered-content">
+        <p class="instructions">Select the Default Canvas Color</p>
+        <!-- Buttons for Default Color Selection are created dynamically via JavaScript with createColorButtons() -->
+      </div>
     </div>
 
 

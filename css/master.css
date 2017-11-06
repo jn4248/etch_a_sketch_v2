@@ -1,14 +1,13 @@
 
-html, body {
+html {
   /*font-size: 13px;*/
   /*font-family: Roboto, Arial, sans-serif;*/
   min-width: 1080px;
 }
 
-/*body {
-  min-width: 1080px;
-  /*background-image: url("images/beach.jpg");*/
-}*/
+body {
+  background: linear-gradient(black, white, black);
+}
 * {
   box-sizing: border-box;
 }
@@ -29,9 +28,14 @@ html, body {
 .instructions-panel {
   width: 1080px;
 }
+.instructions {
+  color: white;
+  font-weight: bold;
+}
 .control-panel-top {
   width: 1080px;
-  height: 120px;
+  padding: 1em;
+  /*height: 120px;*/
 }
 .control-panel-left {
   width: 120px;
@@ -48,7 +52,7 @@ html, body {
 .container-grid {
   width: 960px;
   height: 960px;
-  border: 0.5em solid green;
+  border: 0.5em solid rgb(123, 0, 232);
   float: left;
 }
 .centered-content {
@@ -56,12 +60,17 @@ html, body {
 }
 .button-control {
   color: rgb(153, 2, 2);
+  border: 2px solid green;
   padding: 0.5em;
+  border-radius: 2px;
+}
+.button-control-selected {
+  border: 3px solid silver;
 }
 .tiles-container {
   height: 100%;
-  background-color: darkorange;
-  border: 1em solid rgb(0, 204, 20);
+  /*background-color: darkorange;*/
+  /*border: 1em solid rgb(0, 204, 20);*/
   /*padding: 1em;
   margin: 1em;
   display: inline-block;*/
@@ -86,7 +95,7 @@ html, body {
   /*height: 0.5em;*/
   /*width: 0.5em;*/
   /*border: 1px solid rgb(0, 0, 0);*/
-  /*background-color: rgb(239, 184, 244);*/
+  /*background-color: pink;*/
   /*float: left;*/
 }
 
