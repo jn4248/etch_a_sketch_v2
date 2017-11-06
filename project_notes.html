@@ -14,6 +14,8 @@
      of find(), (filter returned an array? instead of just one??  not sure....find out for sure why)
 = if i get the defaultTileColor variable working with get/set functions (see above problem), can I do the same with a currentDrawColor?  might simplify code in other functions...instead of searching the DOM to find the button with 'button-color-selected' class....maybe is not so bad. not too many to search through, so pretty fast.
 = after getting the defaultTileColor variable get/set methods working in createGrid(), add back in the second panel (to select default tile color), and get this working.
+
+= remove default tile color idea completely:  use background-color on container "tiles-container" as "default" and change that instead of individual tiles.  Then just have one draw color to keep track of.  BUT, if want to set up get/set methods for the draw tile, may run into same problem above.  figure out above first before try this.
 = move variables out of global scope?  into attributes?  not sure how...
 = highlight the "toggle erase" button when selected (use same hightlight as color buttons somehow...currently button-highlighted is used to identivy the active color by data-type 'color')
 = can use "toggle" method for class, or anything else?  colors?  add / remove, with cases to check, may be safer...in case an error somewhere in code causes a flip-flop

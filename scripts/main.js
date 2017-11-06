@@ -4,13 +4,9 @@ $(document).ready(function() {
 
   let mouseStillDown = false;  // keeps track of mousebutton position for drawing
   let eraseOn = false;         // tracks toggle state of 'erase' button. erase is off to begin.
-  var defaultTileColor = 'red';  // set intial color of tiles on grid (canvas color)
+  let defaultTileColor = 'red';  // set intial color of tiles on grid (canvas color)
 
   let availableColors = ['white', 'yellow', 'orange', 'pink', 'red', 'lightblue', 'blue', 'lawngreen', 'green', 'rebeccapurple', 'saddlebrown', 'lightgrey','grey', 'black'];
-  // console.log('color choices array is:');
-  // console.log(availableColors);
-
-
 
 
   // Executed code at html screen load time
@@ -106,22 +102,24 @@ $(document).ready(function() {
       document.documentElement.style.setProperty("--numColumns", gridSize);
 
       // create the grid of tiles
-      // intializes color class and data-color by global variable defaultTileColor
+      // intializes color class and data-tileColor by global variable defaultTileColor
       let numTiles = gridSize * gridSize;
       let newTile = $('<div></div>').addClass('tile');
       console.log('creating grid - default class: ' + getDefaultTileColorClass());
       console.log('creating grid - default color: ' + getDefaultTileColor());
 
+
+
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
       //    HERE: I need to add to the newTile element:
       //          1.  color class:            "hightlighted-red"    (or: 'hightlighted-' + defaultTileColor)
-      //          2.  data-color attribute:   "red"                 (or: defaultTileColor)
+      //          2.  data-tileColor attribute:   "red"                 (or: defaultTileColor)
       //
       // PROBLEM: if I pass the global variable in for defaultTileColor, it works.
       //          Neither of the following 2 alternative methods worked:
-      //          1. defining new variable XX=getDefaultTileColor() and then passing "newTile.data('color', XX)"
-      //          2. passing getDefaultTileColor() in "newTile.data('color', xxx)"
+      //          1. defining new variable XX=getDefaultTileColor() and then passing "newTile.data('tileColor', XX)"
+      //          2. passing getDefaultTileColor() in "newTile.data('tileColor', xxx)"
       //          Also trided same substitution with adding the class.  neither methods worked as argument/parameter for "newTile.addClass(xxx)"
       //          However, the getDefaultTileColor() and getDefaultTileColorClass() methods work, because they print out to console above just fine.
       //          Find out how to pass them as arguments/variables...or why it's not working.
@@ -132,21 +130,33 @@ $(document).ready(function() {
       //          Similar problem happening from the drawOnTile method...when I select a color to use and then try to click the tile,
       //                  it shows the correct color selected (in console out), but says it's trying to add an "undefined" color.
 
-/*
+      //  SOLUTION:  not sure why this isn't working. BUT: change defaultColorTile to be just a backgound-color on the 'tiles-container'.
+      //             Instead of having a default color, and a draw color, and swapping the two, just have a background-color and a draw color.
+      //             MUCH MORE SIMPLE.  lots of code to change.
+
+      /*
+
       // IE: method 1  -  Does NOT work
       let tileColorClass = getDefaultTileColorClass();
+      console.log('createGrid  --  tileColorClass variable-let is: ' + tileColorClass);
+      console.log('createGrid  --  tileColorClass type is: ' + typeof tileColorClass);
       newTile.addClass(tileColorClass); //getDefaultTileColorClass());
       let tileColorName = getDefaultTileColor();
-      newTile.data('color', tileColorName); //getDefaultTileColor());
+      console.log('createGrid  --  tileColorName variable-let is: ' + tileColorName);
+      console.log('createGrid  --  tileColorName type is: ' + typeof tileColorName);
+      newTile.data('tileColor', tileColorName); //getDefaultTileColor());
+
+
 
       // IE: method 2  -  Does NOT work
       newTile.addClass(getDefaultTileColorClass());
-      newTile.data('color', getDefaultTileColor());
-*/
+      newTile.data('tileColor', getDefaultTileColor());
+
+      */
 
       // IE: method 3  -  works
       newTile.addClass('highlighted-red');
-      newTile.data('color', defaultTileColor);
+      newTile.data('tileColor', defaultTileColor);
 
 
       for (let i = 0; i < numTiles; i++) {
@@ -230,7 +240,7 @@ $(document).ready(function() {
   $('#js-control-panel-right').on('click', 'button-color', function(event) {
     console.log('ran DefaultColorButton secondary button listner code');
     event.preventDefault();
-    let newDefaultColor = $(this).data('color');
+    let newDefaultColor = $(this).data('tileColor');
     console.log('color button selected: ' + newDefaultColor);
     // If grid exists (at least one tile exists) update any existing tiles of default color
     if ($('.tile').length) {
@@ -255,22 +265,22 @@ $(document).ready(function() {
   // note:  tiles only have 1 color assigned at any given time
   //
   function removeTileColor(currentTile) {
-    let currentColor = currentTile.data('color');
-    console.log('removeTileColor - removing data-color: ' + currentColor);
+    let currentColor = currentTile.data('tileColor');
+    console.log('removeTileColor - removing data-tileColor: ' + currentColor);
     let currentColorClass = 'highlighted-' + currentColor;
     console.log('removeTileColor - removing color class: ' + currentColorClass);
     currentTile.removeClass(currentColorClass);
   }
 
   // change the highlighted color of a grid Tile
-  // note: Removes current color class, adds new color class, and then updates data-color property
+  // note: Removes current color class, adds new color class, and then updates data-tileColor property
   function highlightTile(currentTile, newColor) {
     removeTileColor(currentTile);
     let newColorClass = 'highlighted-' + newColor;
     currentTile.addClass(newColorClass);
     console.log('highlightTile - adding color class: ' + newColorClass);
-    currentTile.data('color', newColor);
-    console.log('highlightTile - adding data-color: ' + newColor);
+    currentTile.data('tileColor', newColor);
+    console.log('highlightTile - adding data-tileColor: ' + newColor);
   }
 
   // event hanndler on LEFT Control Panel for button to set drawing color
