@@ -4,7 +4,7 @@ $(document).ready(function() {
 
   let mouseStillDown = false;  // keeps track of mousebutton position for drawing
   let eraseOn = false;         // tracks toggle state of 'erase' button. erase is off to begin.
-  let defaultTileColor = 'white';  // set intial color of tiles on grid (canvas color)
+  let initialBackgroundColor = 'white'  // used to set intitial grid background color in createGrid()
 
   let availableColors = ['white', 'yellow', 'orange', 'pink', 'red', 'lightblue', 'blue', 'lawngreen', 'green', 'rebeccapurple', 'saddlebrown', 'lightgrey','grey', 'black'];
 
@@ -27,6 +27,7 @@ $(document).ready(function() {
     }
   }
 
+/*
   // get and set methods for variable defaultTileColor and the respective background color class name
   function setDefaultTileColor(color) {
     defaultTileColor = color;
@@ -37,6 +38,7 @@ $(document).ready(function() {
   function getDefaultTileColorClass() {
     return 'highlighted-' + getDefaultTileColor();
   }
+*/
 
 
 
@@ -62,7 +64,6 @@ $(document).ready(function() {
   // 1.  user enters positive integer:  returns the integer
   // 2.  user clicks 'cancel' on prompt, or enters an empty string:  returns '-1'
   function promptGridSize() {
-    // console.log('ran promptGridSize function');
     let invalidInput = true;
     let answer = prompt('Please enter the number of rows/columns, as a positive integer:', '16');
     let gridSize = parseFloat(answer);
@@ -79,7 +80,7 @@ $(document).ready(function() {
         gridSize = parseFloat(answer);
       }
     }
-}
+  }
 
   /////////////////////////////////////////////////////////////////////
 
@@ -87,43 +88,28 @@ $(document).ready(function() {
   // note: requires use of css variables (declared in ::root at top of master.css file)
   function createGrid() {
     //prompt user for number of rows/columns
-    let gridSize = promptGridSize();
-    // let gridSize = 3;   // alt way for debug instead of using promptGridSize()
+    //let gridSize = promptGridSize();  // returns -1 if user cancels prompt
+    let gridSize = 4;   // alt way for debug instead of using promptGridSize()
 
     // create the drawing grid of tiles.
     // Does not create grid if user entered an empty string, or canceled the prompt
     if (gridSize > 0) {
-      let grid1 = $('<div></div>').addClass('tiles-container');
+      // create grid element and set default background color for canvas
+      let grid1 = $('<div data-tilecolor=' + initialBackgroundColor + '></div>');
+      initialBackgroundColorClass = 'highlighted-' + initialBackgroundColor;
+      grid1.addClass('tiles-container');
+      grid1.addClass(initialBackgroundColorClass);
       grid1.hide();
       $('#js-gridContainer').append(grid1);
-
       // set css variables for number of rows and columns
       document.documentElement.style.setProperty("--numRows", gridSize);
       document.documentElement.style.setProperty("--numColumns", gridSize);
-
       // create the grid of tiles
-      // intializes color class and data-tilecolor by global variable defaultTileColor
       let numTiles = gridSize * gridSize;
-
-      let newTile = $('<div data-tilecolor="default"></div>').addClass('tile');
-      console.log('creating grid - default class: ' + getDefaultTileColorClass());
-      console.log('creating grid - default color: ' + getDefaultTileColor());
-      newTile.addClass(getDefaultTileColorClass());
-      newTile.data('tilecolor', getDefaultTileColor());
-
+      let newTile = $('<div data-tilecolor="none"></div>').addClass('tile');
       for (let i = 0; i < numTiles; i++) {
         grid1.append(newTile.clone(true));  // 'true' clones data and eventHandlers too, instead of sharing
-
-        // alternate way of adding tiles - instead of creating first, and then appending a clone (above)
-/*      let newTile = $('<div data-tilecolor="default"></div>').addClass('tile');
-        console.log('creating grid - default class: ' + getDefaultTileColorClass());
-        console.log('creating grid - default color: ' + getDefaultTileColor());
-        newTile.addClass(getDefaultTileColorClass());
-        newTile.data('tilecolor', getDefaultTileColor());
-        grid1.append(newTile);
-        */
       }
-
       grid1.fadeIn(700);
       //grid1.show();
     }
@@ -135,6 +121,7 @@ $(document).ready(function() {
   $('#js-createGridButton').on('click', function(event) {
     event.preventDefault();
     if ($(this).data('clicked') === false) {
+        // initialize first grid with no data-tilecolor 'none'. can be set to current background-color if used to reset the current grid
       createGrid();
       $(this).data('clicked', 'true');
     } else {
@@ -159,8 +146,8 @@ $(document).ready(function() {
   // note: removes current grid (div) and creates a new one.
   $('#js-resetGridButton').on('click', function(event) {
     event.preventDefault();
-    if ($('.tiles-container').length) {
-      $('.tiles-container').remove();
+    if ($('tiles-container').length) {
+      $('tiles-container').remove();
       createGrid();
     } else {
       alert('Cannot remove. Grid has not been created');
@@ -172,16 +159,16 @@ $(document).ready(function() {
   $('#js-clearGridButton').on('click', function(event) {
     console.log('ran clearGridButton');
     event.preventDefault();
-    // only run the code if there exists at least one tile (ie: if the grid exists)
-    if ($('.tile').length) {
-      console.log('clear - found at least one tile');
+    // only run the code if the grid exists
+    if ($('.tiles-container').length) {
+      console.log('clear - grid exists');
       // if tiles exist, check if each one is already of default color, if not set to default color
       $('.tile').each(function() {
         let currentTile = $(this);
         console.log('checking tile: ' + currentTile);
-        if (currentTile.hasClass(getDefaultTileColorClass()) !== true) {
-          console.log('found non-default color tile');
-          highlightTile(currentTile, getDefaultTileColor());
+        if (currentTile.data('tilecolor') !== 'none') {
+          console.log('found colored tile');
+          removeColorClass(currentTile);
         }
       });
     } else {
@@ -205,51 +192,51 @@ $(document).ready(function() {
   // note: first changes any existing default tiles to the new default color, and
   //       then updates the global defaulTileColor variable (in case 'reset' is run..etc)
   $('#js-control-panel-right').on('click', '.button-color', function(event) {
-    console.log('ran DefaultColorButton secondary button listner code');
+    console.log('ran setDefaultColorButton secondary code - line 189');
     event.preventDefault();
-    // update default tile color, and then update any tiles that have the old default color
-    let oldDefaultColorClass = getDefaultTileColorClass();
-    let newDefaultColor = $(this).attr('name');
-    setDefaultTileColor(newDefaultColor);
-    console.log('color button selected: ' + newDefaultColor);
+    let newBackgroundColor = $(this).attr('name');
+    console.log('color button selected: ' + newBackgroundColor);
     // If grid exists (at least one tile exists) update any existing tiles of default color
-    if ($('.tile').length) {
-      console.log('clear - found at least one tile');
-      $('.tile').each(function() {
-        let currentTile = $(this);
-        console.log('checking tile: ' + currentTile);
-        if (currentTile.hasClass(oldDefaultColorClass)) {
-          console.log('found non-default color tile');
-          highlightTile(currentTile, getDefaultTileColor());
-        }
-      });
+    if ($('.tiles-container').length) {
+      console.log('clear - grid exists');
+      // x = get class list for container-grid
+      // remove 'tiles-container' from this array
+      // whatever is left is the highlight class
+      // remove the hightlihgt class (this could easily break if i add more classes)
+      console.log('setting new background highlight as: ' + newBackgroundColor);
+      highlightDrawElement($('.tiles-container'), newBackgroundColor);
     }
     // close the default color selection panel
     $('#js-control-panel-right').slideToggle(500);
   });
 
 
-  // removes highlighted color class from a grid tile.
-  // note: tiles are initiated with color property of "Default" in createGrid()
-  // note:  tiles only have 1 color assigned at any given time
-  //
-  function removeTileColor(currentTile) {
-    let currentColor = currentTile.data('tilecolor');
-    console.log('removeTileColor - removing data-tilecolor: ' + currentColor);
+  // removes highlighted color class from a drawing element that uses specific color classes.
+  // note: tiles are initiated with data-tilecolor attribute of "none" in createGrid()
+  // note:  drawing elements only have 1 color assigned at any given time
+  // note: can only be called on a tile that has a highlighted class attached,
+  //       or else will fail (eg: can not remove class "highlighted-none" because doesn not exist)
+  //note: color classes are of format: 'highlighted-' + color
+  function removeColorClass(currentDrawElement) {
+    let currentColor = currentDrawElement.data('tilecolor');
+    console.log('removeColorClass - removing data-tilecolor: ' + currentColor);
     let currentColorClass = 'highlighted-' + currentColor;
-    console.log('removeTileColor - removing color class: ' + currentColorClass);
-    currentTile.removeClass(currentColorClass);
+    console.log('removeColorClass - removing color class: ' + currentColorClass);
+    currentDrawElement.removeClass(currentColorClass);
+    // re-initialize data-tilecolor to 'none'
+    currentDrawElement.data('tilecolor', 'none');
   }
 
   // change the highlighted color of a grid Tile
   // note: Removes current color class, adds new color class, and then updates data-tilecolor property
-  function highlightTile(currentTile, newColor) {
-    removeTileColor(currentTile);
-    let newColorClass = 'highlighted-' + newColor;
-    currentTile.addClass(newColorClass);
-    console.log('highlightTile - adding color class: ' + newColorClass);
-    currentTile.data('tilecolor', newColor);
-    console.log('highlightTile - adding data-tilecolor: ' + newColor);
+  function highlightDrawElement(currentDrawElement, newColor) {
+    if (currentDrawElement.data('tilecolor') !== 'none') {
+      removeColorClass(currentDrawElement);
+    }
+    currentDrawElement.addClass('highlighted-' + newColor);
+    console.log('highlightDrawElement - adding color class: ' + 'highlighted-' + newColor);
+    currentDrawElement.data('tilecolor', newColor);
+    console.log('highlightDrawElement - adding data-tilecolor: ' + newColor);
   }
 
   // event hanndler on LEFT Control Panel for button to set drawing color
@@ -267,17 +254,16 @@ $(document).ready(function() {
   // toggles "highlighted" class for a tile, to draw or erase it
   function drawOnTile(currentTile) {
     console.log('ran drawOnTile');
-    // erase tile if erase button is activated "true"
+    // erase tile if erase button is activated:"true"
     if (getEraseOnStatus()) {
       console.log('erasing');
-      highlightTile(currentTile, getDefaultTileColor());
+      removeColorClass(currentTile);
     }
-    // highlight tile if erase button is not activated "fale"
+    // highlight tile if erase button is not activated: "false"
     else {
       let newColor = $('#js-control-panel-left').find('.button-color-selected').first().attr('name');
-      // let newColor = $('.button-color-selected').attr('name');
       console.log('drawing color:' + newColor);
-      highlightTile(currentTile, newColor);
+      highlightDrawElement(currentTile, newColor);
     }
   }
 
@@ -307,116 +293,3 @@ $(document).ready(function() {
   /////////////////////////////////////////////////////////////////////
 
 });  //end of ready()
-
-
-/////////////////////////////////////////////////////////////////////
-// EXTRA CODE REMNANTS - tried and no longer using
-/////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////
-/*
-  // Build Grid system of tiles to draw with - Method 1
-  function createGrid1() {
-    //prompt user for number of rows/columns
-    let gridSize = 80;
-
-    //create grid, and a frame in which to center the grid
-    // only create the grid if user did not cancel the prompt
-    if (cancelGridCreation === false) {
-      let grid1 = $('<div></div>').addClass('tiles-container grid1-id');
-      grid1.hide();
-      let gridsContainer = $('#js-gridsContainer');
-      gridsContainer.append(grid1);
-      let gridHeight = gridsContainer.height();
-      let tileHeight = gridHeight / gridSize;
-      console.log('gridHeight is: ' + gridHeight);
-      console.log('tileHeight is: ' + tileHeight);
-      let gridWidth = gridsContainer.width();
-      let tileWidth = gridWidth / gridSize;
-      console.log('gridWidth is: ' + gridWidth);
-      console.log('tileWidth is: ' + tileWidth);
-      $('.tile').css({'height': 'tileHeight', 'width': 'tileWidth'});
-
-      // create the grid of tiles
-      for (let row = 0; row < gridSize; row++) {
-        for (let col = 0; col < gridSize; col++) {
-          let newTile = $('<div></div>').addClass('tile');
-          if (col === 0) {
-            newTile.addClass('left-tile');
-          }
-          grid1.append(newTile);
-        }
-      }
-
-      let gridHeight = grid1.height();
-      let tileHeight = gridHeight / gridSize;
-      console.log('gridHeight is: ' + gridHeight);
-      console.log('tileHeight is: ' + tileHeight);
-      let gridWidth = grid1.width();
-      let tileWidth = gridWidth / gridSize;
-      console.log('gridWidth is: ' + gridWidth);
-      console.log('tileWidth is: ' + tileWidth);
-      // $('.tile').css({'height': 'tileHeight', 'width': 'tileWidth'});
-      $('.tile').css('height', tileHeight);
-      $('.tile').css('width', tileWidth);
-
-      // grid1Frame.fadeIn(2000);
-      grid1.show();
-    }
-  }
-*/
-/////////////////////////////////////////////////////////////////////
-
-// Build Grid system of tiles to draw with - Method 2
-/*
-function createGrid2() {
-  //create grid, and a frame in which to center the grid
-  let grid2Frame = $('<div></div>').addClass('centered-content');
-  grid2Frame.hide();
-  let grid2 = $('<div></div').addClass('tiles-container');
-  grid2Frame.append(grid2);
-  $('#js-gridContainer').append(grid2Frame);
-  // create template row
-  let rowTemplate = $('<div></div>').addClass('row-container');
-  for (let i = 0; i < tileGridSize; i++) {
-    let newTile = $('<div></div>').addClass('tile');
-    if (i === 0) {
-      newTile.addClass('left-tile');
-    }
-    rowTemplate.append(newTile);
-  }
-  // copy clones of the template row into the grid
-  for (let j = 0; j < tileGridSize; j++) {
-    grid2.append(rowTemplate.clone(true));
-  }
-  // grid2Frame.fadeIn(2000);
-  grid2Frame.show();
-}
-*/
-
-/////////////////////////////////////////////////////////////////////
-
-/* BUTTON ON-CLICK FUNCTION TO CALL A SEPARATE AND SECOND METHOD OF CREATING THE DRAWING GRID */
-// buttons to create the main drawing grid 1
-// $('#js-createGrid2Button').on('click', function() {
-//   if ($(this).data('clicked') === false) {
-//     createGrid2();
-//     $(this).data('clicked', 'true');
-//   } else {
-//     alert('Grid 2 has already been displayed');
-//   }
-// });
-
-/////////////////////////////////////////////////////////////////////
-
-/* THIS WAS AN ALTERNATIVE MEANS TO HIGHLIGHT TILES */
-// option 2 - mousemove instead of mouseenter
-// (ttried: was equally responsive as mouseenter - still skipped with fast mouse movement)
-// $('#js-gridContainer').on('mousemove', '.tile', function(event) {
-//   event.preventDefault();
-//   if (mouseStillDown) {
-//     drawOnTile($(this));
-//   }
-// });
-
-/////////////////////////////////////////////////////////////////////

@@ -13,10 +13,6 @@
   <body>
     <header class="instructions-panel control-panel instructions">
       <h1>Etch-a-Sketch Drawing Pad</h1>
-      <p>The drawing canvas can be created using either of two methods:</p>
-      <p>Method 1: The grid of tiles is created by adding each tile individually over two for-loops.</p>
-      <p>Method 2: The grid of tiles is created using a for-loop to build a template row, and then cloning the template to build each additional row.</p>
-      <p>While both methods produce a result with the same functionality, method 2 contructs the canva noticeably faster than Method 1 when there are more than 50 rows and columns.</p>
     </header>
     <div id="js-control-panel-top" class="control-panel-top control-panel centered-content">
       <button id="js-createGridButton" class="button-control" type="button" data-clicked="false">Create Drawing Canvas</button>
@@ -34,7 +30,7 @@
 
     <div id="js-gridContainer" class="container-grid">
       <div id="js-control-panel-right" class="control-panel-right control-panel centered-content">
-        <p class="instructions">Select the Default Canvas Color</p>
+        <p class="instructions">Select a new Default Canvas Color</p>
         <!-- Buttons for Default Color Selection are created dynamically via JavaScript with createColorButtons() -->
       </div>
     </div>
