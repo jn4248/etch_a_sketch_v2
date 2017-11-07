@@ -15,8 +15,7 @@
       <h1>Etch-a-Sketch Drawing Pad</h1>
     </header>
     <div id="js-control-panel-top" class="control-panel-top control-panel centered-content">
-      <button id="js-createGridButton" class="button-control" type="button" data-clicked="false">Create Drawing Canvas</button>
-      <button id="js-resetGridButton" class="button-control" type="button">Reset Canvas (and set size)</button>
+      <button id="js-createGridButton" class="button-control" type="button" data-alreadyclicked="no">Create/Reset Drawing Canvas</button>
       <button id="js-clearGridButton" class="button-control" type="button">Clear Canvas</button>
       <button id="js-eraseButton" class="button-control" type="button">Erase On/Off</button>
       <button id="js-setDefaultColorButton" class="button-control" type="button">Set Canvas default Color <br> (open/close menu)</button>
@@ -30,7 +29,7 @@
 
     <div id="js-gridContainer" class="container-grid">
       <div id="js-control-panel-right" class="control-panel-right control-panel centered-content">
-        <p class="instructions">Select a new Default Canvas Color</p>
+        <p class="instructions">Select Canvas Background Color</p>
         <!-- Buttons for Default Color Selection are created dynamically via JavaScript with createColorButtons() -->
       </div>
     </div>
