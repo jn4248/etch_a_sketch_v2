@@ -11,18 +11,18 @@
   </head>
 
   <body>
-    <div class="container-app-main">
-      <!-- <div class="control-panel"> -->
-        <header class="instructions-panel instructions">
-          <h1>Etch-a-Sketch Drawing Pad</h1>
-        </header>
-        <div id="js-controlPanelTop" class="control-panel-top centered-content">
-          <button id="js-createGridButton" class="button-control" type="button" data-alreadyclicked="no">Create/Reset Drawing Canvas</button>
-          <button id="js-clearGridButton" class="button-control" type="button">Clear Canvas</button>
-          <button id="js-eraseButton" class="button-control" type="button">Erase On/Off</button>
-          <button id="js-setDefaultColorButton" class="button-control" type="button">Change Canvas Color <br> (toggle menu)</button>
-        </div>
-      <!-- </div> -->
+    <div class="container-app-main red-gradient">
+      <header class="instructions-panel instructions">
+        <h1>Etch-a-Sketch Drawing Pad</h1>
+      </header>
+
+      <div id="js-controlPanelTop" class="control-panel-top centered-content">
+        <button id="js-createGridButton" class="button-control" type="button" data-alreadyclicked="no">Create/Reset Drawing Canvas</button>
+        <button id="js-clearGridButton" class="button-control" type="button">Clear Canvas</button>
+        <button id="js-eraseButton" class="button-control" type="button">Toggle Erase On/Off</button>
+        <button id="js-setDefaultColorButton" class="button-control" type="button">Change Canvas Color <br> (background)</button>
+      </div>
+
       <div class="container-main-drawing">
         <div id="js-controlPanelLeft" class="control-panel-left centered-content">
           <div class="control-panel-title">
@@ -37,9 +37,9 @@
         <div id="js-gridContainer" class="container-grid">
         </div>
 
-        <div id="js-controlPanelRight" class="control-panel-right centered-content">
+        <div id="js-controlPanelRight" class="control-panel-right centered-content red-gradient">
           <div class="control-panel-title">
-            <p class="instructions">Select Canvas Background Color</p>
+            <p class="instructions">Select Canvas Color</p>
           </div>
           <div id="js-buttonContainerRight" class="container-buttons-color">
           </div>
@@ -47,7 +47,12 @@
         </div>
       </div>
 
-
+      <footer class="container-knobs">
+        <div class="knob knob-left">
+        </div>
+        <div class="knob knob-right">
+        </div>
+      </footer>
     </div>
     <script src="scripts/main.js"></script>
   </body>
