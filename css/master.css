@@ -17,13 +17,13 @@ html, body {
 /*
  *  note
  */
-.app-container {
-  /*background: linear-gradient(black, grey, white, grey, black);*/
-  background-color: grey;
-  border: 10px solid rgb(123, 0, 232);
+.container-app-main {
+  background: linear-gradient(black, grey, white, grey, black);
+  /*background-color: grey;*/
+  border: 20px solid rgb(220, 0, 0);
   width: 1080px;
  }
- .app-container::after {
+ .container-app-main::after {
    content: "";
    display: table;
    clear: both;
@@ -42,18 +42,29 @@ html, body {
   /*height: 120px;*/
   padding: 10px;
 }
-.control-panel-left {
-  width: 100px;
+.container-main-drawing {
+  width: 1040px;
   height: 960px;
-  float: left;
+  position: relative;
+}
+.control-panel-left {
+  width: 80px;
+  /*height: 960px;*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
 }
 .control-panel-right {
-  width: 100px;
-  height: 960px;
-  float: left;
+  width: 80px;
+  /*height: 960px;*/
+  background-color: darkgrey;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
   display: none;
-  /*position: absolute;*/
-  /*z-index: 5;*/
 }
 .container-buttons-color {
   /*margin-top: 100px;*/
@@ -63,14 +74,22 @@ html, body {
 }
 .container-grid {
   width: 960px;
-  height: 960px;
-  float: left
+  /*height: 960px;*/
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  /*float: left*/
   /*margin-left: 100px;*/
   /*border: 10px solid lawngreen;*/
 }
 .tiles-container {
   height: 100%;
-  border: 10px solid lawngreen;
+  border-top-width: 10px;
+  border-left-width: 10px;
+  border-style: solid;
+  border-color: rgb(220, 0, 0);
   display: grid;
   grid-template-rows: repeat(var(--numRows), 1fr);    /* auto or 1fr*/
   grid-template-columns: repeat(var(--numColumns), 1fr); /* auto or 1fr*/

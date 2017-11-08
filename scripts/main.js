@@ -88,7 +88,7 @@ $(document).ready(function() {
   function createGrid(backgroundColor) {
     //prompt user for number of rows/columns
     // let gridSize = promptGridSize();  // returns -1 if user cancels prompt
-    let gridSize = 6;   // alt way for debug instead of using promptGridSize()
+    let gridSize = 10;   // alt way for debug instead of using promptGridSize()
 
     // create the drawing grid of tiles.
     // Does not create grid if user entered an empty string, or canceled the prompt

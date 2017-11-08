@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <div class="app-container">
+    <div class="container-app-main">
       <!-- <div class="control-panel"> -->
         <header class="instructions-panel instructions">
           <h1>Etch-a-Sketch Drawing Pad</h1>
@@ -23,27 +23,28 @@
           <button id="js-setDefaultColorButton" class="button-control" type="button">Change Canvas Color <br> (toggle menu)</button>
         </div>
       <!-- </div> -->
+      <div class="container-main-drawing">
+        <div id="js-controlPanelLeft" class="control-panel-left centered-content">
+          <div class="control-panel-title">
+            <p class="instructions">Select Drawing Color</p>
+          </div>
 
-      <div id="js-controlPanelLeft" class="control-panel-left centered-content">
-        <div class="control-panel-title">
-          <p class="instructions">Select Drawing Color</p>
+          <div id="js-buttonContainerLeft" class="container-buttons-color">
+          </div>
+          <!-- Buttons for Color Selection are created dynamically via JavaScript with createColorButtons() -->
         </div>
 
-        <div id="js-buttonContainerLeft" class="container-buttons-color">
+        <div id="js-gridContainer" class="container-grid">
         </div>
-        <!-- Buttons for Color Selection are created dynamically via JavaScript with createColorButtons() -->
-      </div>
 
-      <div id="js-gridContainer" class="container-grid">
-      </div>
-
-      <div id="js-controlPanelRight" class="control-panel-right centered-content">
-        <div class="control-panel-title">
-          <p class="instructions">Select Canvas Background Color</p>
+        <div id="js-controlPanelRight" class="control-panel-right centered-content">
+          <div class="control-panel-title">
+            <p class="instructions">Select Canvas Background Color</p>
+          </div>
+          <div id="js-buttonContainerRight" class="container-buttons-color">
+          </div>
+          <!-- Buttons for Default Color Selection are created dynamically via JavaScript with createColorButtons() -->
         </div>
-        <div id="js-buttonContainerRight" class="container-buttons-color">
-        </div>
-        <!-- Buttons for Default Color Selection are created dynamically via JavaScript with createColorButtons() -->
       </div>
 
 

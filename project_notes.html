@@ -11,23 +11,22 @@
 
 /////////////    FUNCTIONALITY ISSUES - IMPORTANT  /////////////////////////
 
-= set-default-color menu doesn't appear OVER the canvas, but squishes the canvas grid to the left (shrinks it), and the stretches back after closing menu.
 = move variables out of global scope?  into attributes?  not sure how...
 = can use "toggle" method for class, or anything else?  colors?  add / remove, with cases to check, may be safer...in case an error somewhere in code causes a flip-flop
 = add optional 10% alpha-grading: (Optional): Instead of just changing the color of your grid from black to white (for example), have each pass through it with the mouse change to a completely random RGB value. Then try having each pass just add another 10% of black to it, so only after 10 passes is the square completely black.
-= see if you can do a second version of the grid WITHOUT using grid display layout.
 = mouse skips if moves too fast ???
 = add better hightlight to "esrase" button, or change to show "on" and "off" on the button too?
 
+
 //////////////  BEAUTIFICATIN / SPACING  ///////////////////
 = review css code - wher am I adding margins/padding...on containers or eleemnts? consistent? on the right elements?
-= fix box sizing and spacing of buttons (buttons started to show side-by-side....I think because box enlarged because of <p> element, and buttons inherited 'inline-block'...so stacked vertically if container was small enough.  Tried designating buttons as 'block' and added 'margin: auto'...this crushed vertical spacing, so added a vertical 1em part to the margin in css)
 = enhance control-panel backgrounds and borders
-= fix spacing in instruction box
-= add a better background to page, or a picture?
-= make backgound to page ONLY fill behind the content?  containing div to house image?
+= background for entire game (picture? with etch-a-sketches?) - simple/matching background for right button-color drop down menu
+= add instructions at top
+= format title name (accoring to background colors...)...maybe a red shadow?
 = change buttons to be px designed, so shrinks with container boxes?
 = improve border on buttons, better highlighting (to work over both light and dark colors)...double borders?  outline doesn't work because outline forms on outer square box of div, and NOT the rounded courners
+= go through and clarify names used for variables (can simplify and organize/group code better?)
 
 
 ////////////  CODE CLEANING UP THINGS ///////////////////////////
