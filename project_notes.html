@@ -11,24 +11,23 @@
 
 /////////////    FUNCTIONALITY ISSUES - IMPORTANT  /////////////////////////
 
-= if i get the defaultTileColor variable working with get/set functions (see above problem), can I do the same with a currentDrawColor?  might simplify code in other functions...instead of searching the DOM to find the button with 'button-color-selected' class....maybe is not so bad. not too many to search through, so pretty fast.
-= after getting the defaultTileColor variable get/set methods working in createGrid(), add back in the second panel (to select default tile color), and get this working.
-
-= remove default tile color idea completely:  use background-color on container "tiles-container" as "default" and change that instead of individual tiles.  Then just have one draw color to keep track of.  BUT, if want to set up get/set methods for the draw tile, may run into same problem above.  figure out above first before try this.
+= set-default-color menu doesn't appear OVER the canvas, but squishes the canvas grid to the left (shrinks it), and the stretches back after closing menu.
 = move variables out of global scope?  into attributes?  not sure how...
-= highlight the "toggle erase" button when selected (use same hightlight as color buttons somehow...currently button-highlighted is used to identivy the active color by data-type 'color')
 = can use "toggle" method for class, or anything else?  colors?  add / remove, with cases to check, may be safer...in case an error somewhere in code causes a flip-flop
 = add optional 10% alpha-grading: (Optional): Instead of just changing the color of your grid from black to white (for example), have each pass through it with the mouse change to a completely random RGB value. Then try having each pass just add another 10% of black to it, so only after 10 passes is the square completely black.
 = see if you can do a second version of the grid WITHOUT using grid display layout.
 = mouse skips if moves too fast ???
-= add hightlihgt to "esrase" button to show if toggled one or note
+= add better hightlight to "esrase" button, or change to show "on" and "off" on the button too?
 
 //////////////  BEAUTIFICATIN / SPACING  ///////////////////
 = review css code - wher am I adding margins/padding...on containers or eleemnts? consistent? on the right elements?
 = fix box sizing and spacing of buttons (buttons started to show side-by-side....I think because box enlarged because of <p> element, and buttons inherited 'inline-block'...so stacked vertically if container was small enough.  Tried designating buttons as 'block' and added 'margin: auto'...this crushed vertical spacing, so added a vertical 1em part to the margin in css)
 = enhance control-panel backgrounds and borders
 = fix spacing in instruction box
-= add a background to page
+= add a better background to page, or a picture?
+= make backgound to page ONLY fill behind the content?  containing div to house image?
+= change buttons to be px designed, so shrinks with container boxes?
+= improve border on buttons, better highlighting (to work over both light and dark colors)...double borders?  outline doesn't work because outline forms on outer square box of div, and NOT the rounded courners
 
 
 ////////////  CODE CLEANING UP THINGS ///////////////////////////

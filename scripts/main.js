@@ -10,8 +10,8 @@ $(document).ready(function() {
 
 
   // Executed code at html screen load time
-  createColorButtons($('#js-control-panel-left'), availableColors);  // calls method to create the color buttons
-  createColorButtons($('#js-control-panel-right'), availableColors);  // calls method to create the color buttons
+  createColorButtons($('#js-buttonContainerLeft'), availableColors);  // calls method to create the color buttons
+  createColorButtons($('#js-buttonContainerRight'), availableColors);  // calls method to create the color buttons
 
 
 
@@ -87,8 +87,8 @@ $(document).ready(function() {
   // note: requires use of css variables (declared in ::root at top of master.css file)
   function createGrid(backgroundColor) {
     //prompt user for number of rows/columns
-    let gridSize = promptGridSize();  // returns -1 if user cancels prompt
-    // let gridSize = 4;   // alt way for debug instead of using promptGridSize()
+    // let gridSize = promptGridSize();  // returns -1 if user cancels prompt
+    let gridSize = 6;   // alt way for debug instead of using promptGridSize()
 
     // create the drawing grid of tiles.
     // Does not create grid if user entered an empty string, or canceled the prompt
@@ -163,14 +163,14 @@ $(document).ready(function() {
   //        Event Handler for the buttons on that menu close the panel after selection.
   $('#js-setDefaultColorButton').on('click', function(event) {
     event.preventDefault();
-    $('#js-control-panel-right').slideToggle(500);
+    $('#js-controlPanelRight').slideToggle(500);
   });
 
   // event handler to select the default background color.
   // note: containing panel is opened by another event handler (above)
   // note: first changes any existing default tiles to the new default color, and
   //       then updates the global defaulTileColor variable (in case 'reset' is run..etc)
-  $('#js-control-panel-right').on('click', '.button-color', function(event) {
+  $('#js-buttonContainerRight').on('click', '.button-color', function(event) {
     event.preventDefault();
     let newBackgroundColor = $(this).attr('name');
     setGridBackgroundColor(newBackgroundColor);
@@ -179,7 +179,7 @@ $(document).ready(function() {
       highlightElement($('.tiles-container'), getGridBackgroundColor());
     }
     // close the default color selection panel
-    $('#js-control-panel-right').slideToggle(500);
+    $('#js-controlPanelRight').slideToggle(500);
   });
 
 
@@ -209,7 +209,7 @@ $(document).ready(function() {
 
   // event hanndler on LEFT Control Panel for button to set drawing color
   // note: also highlights the button
-  $('#js-control-panel-left').on('click','.button-color', function(event) {
+  $('#js-buttonContainerLeft').on('click','.button-color', function(event) {
     event.preventDefault();
     $('.button-color-selected').removeClass('button-color-selected');
     $(this).addClass('button-color-selected');
@@ -224,7 +224,7 @@ $(document).ready(function() {
     }
     else {
       // highlight tile if erase button is not activated: "false"
-      let newColor = $('#js-control-panel-left').find('.button-color-selected').first().attr('name');
+      let newColor = $('#js-buttonContainerLeft').find('.button-color-selected').first().attr('name');
       highlightElement(currentTile, newColor);
     }
   }
