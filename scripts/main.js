@@ -114,7 +114,7 @@ $(document).ready(function() {
 
 
 
-  // event handler for button to create/reset the main drawing grid 1
+  // event handler for button to Turn On (create)/reset the main drawing grid 1
   $('#js-createGridButton').on('click', function(event) {
     event.preventDefault();
     // remove any existing grid, update data if first time, and create grid
@@ -126,6 +126,14 @@ $(document).ready(function() {
     createGrid(getGridBackgroundColor());
   });
 
+  // event handler for button to Turn Off the main drawing grid 1
+  $('#js-offButton').on('click', function(event) {
+    event.preventDefault();
+    // remove any existing grid
+    if ($('.tiles-container').length) {
+      $('.tiles-container').remove();
+    }
+  });
 
   // event handler for button to toggle "erase" on/off
   $('#js-eraseButton').on('click', function(event) {
