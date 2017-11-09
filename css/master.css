@@ -15,7 +15,7 @@ html, body {
 
 * {
   box-sizing: border-box;
-  border: 1px solid lawngreen;
+  /*border: 1px solid lawngreen;*/
 }
 
 /* CSS Variables to use with javascript */
@@ -24,50 +24,36 @@ html, body {
   --numRows: 2;
   --numColumns: 2;
 }
-/*
- *  note
- */
-.red-gradient {
-  background: linear-gradient(rgb(250, 30, 0), rgb(250, 130, 100), rgb(250, 220, 220), rgb(250, 130, 100), rgb(250, 30, 0));
-}
+
+
+/**
+  * Containers and Panels (areas)
+  */
 .container-app-main {
-  /*border: 80px solid rgb(250, 30, 0);*/
   background-color: rgb(250, 30, 0);
   padding: 80px;
-  /*border-bottom-width: 0;*/
   width: 1280px;
  }
-.instructions-panel {
-  /*width: 100%;*/
-  padding: 10px;
-}
-.instructions {
-  color: white;
-  font-family: arial;
-  font-size: 18px;
-  font-weight: bold;
-}
 .control-panel-top {
-  /*width: 100%;*/
-  /*height: 120px;*/
-  padding: 10px;
+  padding: 20px;
 }
-.container-main-drawing {
+.container-app-drawing {
   width: 1120px;
   height: 1000px;
   position: relative;
 }
 .control-panel-left {
   width: 120px;
-  /*height: 1000px;*/
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
 }
 .control-panel-right {
+  border-color: rgb(250, 30, 0);
+  border-style: solid;
+  border-left-width: 10px;
   width: 120px;
-  /*height: 1000px;*/
   position: absolute;
   top: 0;
   right: 0;
@@ -76,16 +62,15 @@ html, body {
   display: none;
 }
 .control-panel-title {
-  height: 100px;
+  height: 75px;
 }
 .container-grid {
   width: 1000px;
-  /*height: 1000px;*/
+  border-color: rgb(250, 30, 0);
+  border-style: solid;
   border-top-width: 20px;
   border-left-width: 20px;
-  border-style: solid;
-  border-color: rgb(250, 30, 0);
-  background-color: lightgrey;
+  background-color: silver;
   position: absolute;
   top: 0;
   right: 0;
@@ -99,39 +84,7 @@ html, body {
   grid-template-columns: repeat(var(--numColumns), 1fr); /* auto or 1fr*/
   grid-gap: 0;
 }
-.centered-content {
-  text-align: center;
-}
-.button-control {
-  color: rgb(153, 2, 2);
-  border: 2px solid green;
-  padding: 0.5em;
-  border-radius: 2px;
-}
-.button-control-selected {
-  border: 3px solid silver;
-}
-.tile {
-  grid-column-start: auto;
-  grid-row-start: auto;
-  /*border: 1px solid rgb(0, 0, 0);*/
-}
-.button-color {
-  height: 2.5em;
-  width: 2.5em;
-  margin: 1em auto;
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 1.25em;
-  display: block;
-}
-.button-color-selected {
-  border: 3px solid silver;
-  border-radius: 0.25em;
-  /*box-shadow: inset 0 0 silver; */
-}
 .container-knobs {
-  /*width: 100%;*/
-  /*background-color: rgb(250, 30, 0);*/
   padding: 30px 60px 0;
 }
 /* un-collapse container using '::after' */
@@ -140,20 +93,50 @@ html, body {
   display: table;
   clear: both;
 }
+
+/**
+  * Visual Items (buttons, tiles, knobs)
+  */
+.tile {
+  grid-column-start: auto;
+  grid-row-start: auto;
+  /*border: 1px solid rgb(0, 0, 0);*/
+}
+.button-control {
+  font-size: 18px;
+  color: red;
+  font-weight: bold;
+  background-color: white;
+  border: 2px solid darkgrey;
+  /*padding: 5px;*/
+  border-radius: 2px;
+  margin: 0 10px;
+  vertical-align: middle;
+}
+.button-control-small {
+  height: 40px;
+  width: 120px;
+}
+.button-control-large {
+  height: 40px;
+  width: 220px;
+}
+.button-color {
+  height: 50px;
+  width: 50px;
+  margin: 15px auto;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 25px;
+  outline: none;
+  display: block;
+}
 .knob {
   width: 100px;
   height: 100px;
   border-radius: 50px;
   background-color: white;
   border: 2px solid black;
-	box-shadow: 7px 7px rgba(0,0,0,0.6);
 }
-/* un-collapse container using '::after' */
-/*.knob::after {
-  content: "";
-  display: table;
-  clear: both;
-}*/
 .knob-left {
   float: left;
 }
@@ -162,9 +145,50 @@ html, body {
 }
 
 /**
+ *  Utility classes
+ */
+ .title-main {
+   color: goldenrod;
+   font-family: 'Kavivanar', cursive, serif;
+   font-size: 40px;
+   font-weight: bold;
+   display: inline-block;
+ }
+ .title-main-large {
+   font-family: 'Courgette', cursive, serif;
+   font-size: 80px;
+ }
+ .title-colors {
+   color: white;
+   font-family: Arial, sans-serif;
+   font-size: 20px;
+   font-weight: bold;
+ }
+.red-gradient {
+  background: linear-gradient(rgb(250, 30, 0), rgb(250, 130, 100), rgb(250, 220, 220), rgb(250, 130, 100), rgb(250, 30, 0));
+}
+.shadow-effect {
+  box-shadow: 7px 7px rgba(0,0,0,0.6);
+}
+.no-margin {
+  margin: 0;
+}
+.centered-content {
+  text-align: center;
+}
+.button-control-highlighted {
+  color: indigo;
+  background-color: khaki;
+  border: 3px solid silver;
+}
+.button-color-selected {
+  border: 4px solid LightSteelBlue;
+  border-radius: 3px;
+}
+
+/**
   *   Color Classes for highlighting tiles
   */
-
 .highlighted-white {
     background-color: white;
 }
@@ -192,8 +216,8 @@ html, body {
 .highlighted-green {
   background-color: green;
 }
-.highlighted-rebeccapurple {
-  background-color: rebeccapurple;
+.highlighted-indigo {
+  background-color: indigo;
 }
 .highlighted-saddlebrown {
   background-color: saddlebrown;

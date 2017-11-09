@@ -7,51 +7,49 @@
     <!--<link href="css/reset-meyer.css" rel="stylesheet" type="text/css">-->
     <link href="css/master.css" rel="stylesheet" type="text/css">
     <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" type="text/css" rel="stylesheet" > -->
+    <link href="https://fonts.googleapis.com/css?family=Kavivanar" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+
     <script src="scripts/jquery-3.2.1.js"></script>
   </head>
 
   <body>
     <div class="container-app-main">
-      <header class="instructions-panel instructions">
-        <h1>Etch-a-Sketch Drawing Pad</h1>
+      <header class="centered-content">
+        <h1 class="title-main no-margin">MAGIC<span class="title-main-large"> Etch-a-Sketch </span>SCREEN</h1>
       </header>
 
       <div id="js-controlPanelTop" class="control-panel-top centered-content">
-        <button id="js-createGridButton" class="button-control" type="button" data-alreadyclicked="no">On/Reset</button>
-        <button id="js-offButton" class="button-control" type="button">Off</button>
-        <button id="js-clearGridButton" class="button-control" type="button">Clear</button>
-        <button id="js-eraseButton" class="button-control" type="button">Erase On/Off <br> (toggle)</button>
-        <button id="js-setDefaultColorButton" class="button-control" type="button">Change Canvas Color <br> (background)</button>
+        <button id="js-createGridButton" class="button-control button-control-small shadow-effect" type="button" data-alreadyclicked="no">On / Reset</button>
+        <button id="js-offButton" class="button-control button-control-small shadow-effect" type="button">Off</button>
+        <button id="js-clearGridButton" class="button-control button-control-small shadow-effect" type="button">Clear</button>
+        <button id="js-eraseButton" class="button-control button-control-large shadow-effect" type="button">Erase On / Off</button>
+        <button id="js-setDefaultColorButton" class="button-control button-control-large shadow-effect" type="button">Change Canvas Color</button>
       </div>
 
-      <div class="container-main-drawing">
+      <div class="container-app-drawing">
         <div id="js-controlPanelLeft" class="control-panel-left centered-content red-gradient">
           <div class="control-panel-title">
-            <h3 class="instructions">Select Drawing Color</h3>
+            <p class="title-colors no-margin">Select Drawing Color</p>
           </div>
 
-          <div id="js-buttonContainerLeft">
-          </div>
+          <div id="js-buttonContainerLeft"></div>
           <!-- Buttons for Color Selection are created dynamically via JavaScript with createColorButtons() -->
         </div>
 
-        <div id="js-gridContainer" class="container-grid">
-        </div>
+        <div id="js-gridContainer" class="container-grid"></div>
 
         <div id="js-controlPanelRight" class="control-panel-right centered-content red-gradient">
           <div class="control-panel-title">
-            <h3 class="instructions">Select Canvas Color</h3>
+            <p class="title-colors no-margin">Select Canvas Color</p>
           </div>
-          <div id="js-buttonContainerRight">
-          </div>
+          <div id="js-buttonContainerRight"></div>
           <!-- Buttons for Default Color Selection are created dynamically via JavaScript with createColorButtons() -->
         </div>
       </div>
       <footer class="container-knobs">
-        <div class="knob knob-left">
-        </div>
-        <div class="knob knob-right">
-        </div>
+        <div class="knob knob-left shadow-effect"></div>
+        <div class="knob knob-right shadow-effect"></div>
       </footer>
     </div>
     <script src="scripts/main.js"></script>

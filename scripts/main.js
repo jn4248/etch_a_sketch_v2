@@ -6,7 +6,7 @@ $(document).ready(function() {
   let eraseOn = false;         // tracks toggle state of 'erase' button. erase is off to begin.
   let gridBackgroundColor = 'white'  // used to set intitial grid background color in createGrid()
 
-  let availableColors = ['white', 'yellow', 'orange', 'pink', 'red', 'lightblue', 'blue', 'lawngreen', 'green', 'rebeccapurple', 'saddlebrown', 'lightgrey','grey', 'black'];
+  let availableColors = ['white', 'yellow', 'orange', 'pink', 'red', 'lightblue', 'blue', 'lawngreen', 'green', 'indigo', 'saddlebrown', 'lightgrey','grey', 'black'];
 
 
   // Executed code at html screen load time
@@ -87,8 +87,8 @@ $(document).ready(function() {
   // note: requires use of css variables (declared in ::root at top of master.css file)
   function createGrid(backgroundColor) {
     //prompt user for number of rows/columns
-    // let gridSize = promptGridSize();  // returns -1 if user cancels prompt
-    let gridSize = 10;   // alt way for debug instead of using promptGridSize()
+    let gridSize = promptGridSize();  // returns -1 if user cancels prompt
+    // let gridSize = 10;   // alt way for debug instead of using promptGridSize()
 
     // create the drawing grid of tiles.
     // Does not create grid if user entered an empty string, or canceled the prompt
@@ -118,10 +118,12 @@ $(document).ready(function() {
   $('#js-createGridButton').on('click', function(event) {
     event.preventDefault();
     // remove any existing grid, update data if first time, and create grid
-    if ($(this).data('alreadyclicked') === 'yes') {
+    let onButton = $(this);
+    if (onButton.data('alreadyclicked') === 'yes') {
       $('.tiles-container').remove();
     } else {
-      $(this).data('alreadyclicked', 'yes');
+      onButton.data('alreadyclicked', 'yes');
+      onButton.addClass('button-control-highlighted');
     }
     createGrid(getGridBackgroundColor());
   });
@@ -130,8 +132,12 @@ $(document).ready(function() {
   $('#js-offButton').on('click', function(event) {
     event.preventDefault();
     // remove any existing grid
-    if ($('.tiles-container').length) {
-      $('.tiles-container').remove();
+    let grid = $('.tiles-container');
+    let onButton = $('#js-createGridButton');
+    if (grid.length) {
+      grid.remove();
+      onButton.removeClass('button-control-highlighted');
+      onButton.data('alreadyclicked', 'no');
     }
   });
 
@@ -141,9 +147,9 @@ $(document).ready(function() {
     toggleEraseOnStatus();
     // toggle hightlight of button
     if (getEraseOnStatus()) {
-      $(this).addClass('button-control-selected');
+      $(this).addClass('button-control-highlighted');
     } else {
-      $(this).removeClass('button-control-selected')
+      $(this).removeClass('button-control-highlighted');
     }
   });
 
