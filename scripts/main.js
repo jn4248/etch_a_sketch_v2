@@ -20,11 +20,7 @@ $(document).ready(function() {
     return eraseOn;
   }
   function toggleEraseOnStatus() {
-    if (eraseOn === true) {
-      eraseOn = false;
-    } else {
-      eraseOn = true;
-    }
+    eraseOn = eraseOn ? false : true;  /* ternary operator: condition ? case-true : case-false */
   }
 
   // get and set methods for variable defaultTileColor and the respective background color class name
@@ -45,13 +41,14 @@ $(document).ready(function() {
   // Will dynamically create HTML buttons, but css classes must already exist manually
   // note: sets first button to be selected initially
   function createColorButtons(colorPanel, colorArray) {
-    for (let j = 0; j < colorArray.length; j++) {
+    let arrayLength = colorArray.length;
+    for (let j = 0; j < arrayLength; j++) {
       let newColorButton = $('<button type="button"></button>');
       newColorButton.attr('name', colorArray[j]);
       let newColorClass = 'highlighted-' + colorArray[j];
       newColorButton.addClass(newColorClass);
       newColorButton.addClass('button-color');
-      if (j === 0) {
+      if (j === arrayLength - 1) {
         newColorButton.addClass('button-color-selected');
       }
       colorPanel.append(newColorButton);
@@ -64,7 +61,7 @@ $(document).ready(function() {
   // 2.  user clicks 'cancel' on prompt, or enters an empty string:  returns '-1'
   function promptGridSize() {
     let invalidInput = true;
-    let answer = prompt('Please enter the number of rows/columns, as a positive integer:', '16');
+    let answer = prompt('Please enter the number of rows/columns, as a positive integer (suggested: 500 or below):', '16');
     let gridSize = parseFloat(answer);
     while (invalidInput) {
       if ((answer === null) || (answer === "")) {
@@ -75,7 +72,7 @@ $(document).ready(function() {
         invalidInput = false;
         return gridSize;
       } else {
-        answer = prompt('Incorrect format entered.  Please enter the number of rows/columns, as a positive integer:', '16');
+        answer = prompt('Incorrect format entered.  Please enter the number of rows/columns, as a positive integer (suggested: 500 or below):', '16');
         gridSize = parseFloat(answer);
       }
     }
@@ -85,14 +82,8 @@ $(document).ready(function() {
 
   // Build Grid system of tiles to draw with, using "grid display:
   // note: requires use of css variables (declared in ::root at top of master.css file)
-  function createGrid(backgroundColor) {
-    //prompt user for number of rows/columns
-    let gridSize = promptGridSize();  // returns -1 if user cancels prompt
-    // let gridSize = 10;   // alt way for debug instead of using promptGridSize()
-
-    // create the drawing grid of tiles.
-    // Does not create grid if user entered an empty string, or canceled the prompt
-    if (gridSize > 0) {
+  function createGrid(gridSize, backgroundColor) {
+      console.log('gridsize: ' + gridSize + '     and bgColor: ' + backgroundColor);
       // create grid element and set default background color for canvas
       let grid1 = $('<div></div>').addClass('tiles-container');
       grid1.hide();
@@ -108,48 +99,60 @@ $(document).ready(function() {
         grid1.append(newTile.clone(true));  // 'true' clones data and eventHandlers too, instead of sharing
       }
       grid1.fadeIn(1000);
-      //grid1.show();
-    }
   }
 
 
 
   // event handler for button to Turn On (create)/reset the main drawing grid 1
-  $('#js-createGridButton').on('click', function(event) {
+  $('#js-onButton').on('click', function(event) {
     event.preventDefault();
-    // remove any existing grid, update data if first time, and create grid
     let onButton = $(this);
-    if (onButton.data('alreadyclicked') === 'yes') {
-      $('.tiles-container').remove();
-    } else {
-      onButton.data('alreadyclicked', 'yes');
-      onButton.addClass('button-control-highlighted');
+    //prompt user for number of rows/columns
+    // let numRows = 10;   // alt way for debug instead of using promptGridSize()
+    let numRows = promptGridSize();  // returns -1 if user cancels prompt
+    // create grid if prompt was a valid grid size.
+    if (numRows > 0) {
+      if (onButton.data('alreadyclicked') === 'yes') {
+        $('.tiles-container').remove();
+      } else {
+        onButton.data('alreadyclicked', 'yes');
+        onButton.addClass('button-control-highlighted');
+      }
+      createGrid(numRows, getGridBackgroundColor());
     }
-    createGrid(getGridBackgroundColor());
   });
 
   // event handler for button to Turn Off the main drawing grid 1
   $('#js-offButton').on('click', function(event) {
     event.preventDefault();
-    // remove any existing grid
+    // remove any existing grid and un-highlight the "on" button
     let grid = $('.tiles-container');
-    let onButton = $('#js-createGridButton');
+    let onButton = $('#js-onButton');
     if (grid.length) {
       grid.remove();
       onButton.removeClass('button-control-highlighted');
       onButton.data('alreadyclicked', 'no');
     }
+    // if erase button is on, toggle it off, and un-highlight
+    if (getEraseOnStatus()) {
+      toggleEraseOnStatus();
+      $('#js-eraseButton').removeClass('button-control-highlighted');
+    }
   });
 
   // event handler for button to toggle "erase" on/off
+  // only functions if "on/createGrid" button is "on"
   $('#js-eraseButton').on('click', function(event) {
     event.preventDefault();
-    toggleEraseOnStatus();
-    // toggle hightlight of button
-    if (getEraseOnStatus()) {
-      $(this).addClass('button-control-highlighted');
-    } else {
-      $(this).removeClass('button-control-highlighted');
+    // only toggle erase if the 'machine' is "on"
+    if ($('#js-onButton').hasClass('button-control-highlighted')) {
+      toggleEraseOnStatus();
+      // toggle hightlight of button
+      if (getEraseOnStatus()) {
+        $(this).addClass('button-control-highlighted');
+      } else {
+        $(this).removeClass('button-control-highlighted');
+      }
     }
   });
 

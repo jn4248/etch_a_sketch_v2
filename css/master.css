@@ -8,6 +8,7 @@
 
 */
 
+/*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
 
 html, body {
   min-width: 1280px;
@@ -27,33 +28,37 @@ html, body {
 
 
 /**
-  * Containers and Panels (areas)
+  * Containers rgba(0,0,0,0.6)and Panels (areas)
   */
 .container-app-main {
-  background-color: rgb(250, 30, 0);
-  padding: 80px;
   width: 1280px;
+  background-color: rgb(250, 30, 0);
+  padding: 15px 140px 20px 20px;
+  border: 4px solid rgba(0,0,0,0.6);
+ }
+ .container-app-drawing {
+   width: 1120px;
+   height: 1000px;
+   position: relative;
  }
 .control-panel-top {
-  padding: 20px;
-}
-.container-app-drawing {
-  width: 1120px;
-  height: 1000px;
-  position: relative;
+  padding: 10px 10px 20px;
 }
 .control-panel-left {
-  width: 120px;
+  width: 100px;
+  height: 100%;
+  margin-right: 20px;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
 }
 .control-panel-right {
-  border-color: rgb(250, 30, 0);
-  border-style: solid;
-  border-left-width: 10px;
   width: 120px;
+  height: 100%;
+  border-color: rgb(250, 30, 0); /* can't use padding - background is grid */
+  border-style: solid;
+  border-left-width: 20px;
   position: absolute;
   top: 0;
   right: 0;
@@ -66,10 +71,8 @@ html, body {
 }
 .container-grid {
   width: 1000px;
-  border-color: rgb(250, 30, 0);
-  border-style: solid;
-  border-top-width: 20px;
-  border-left-width: 20px;
+  height: 100%;
+  outline: 3px solid rgba(0,0,0,0.6);
   background-color: silver;
   position: absolute;
   top: 0;
@@ -85,7 +88,7 @@ html, body {
   grid-gap: 0;
 }
 .container-knobs {
-  padding: 30px 60px 0;
+  padding: 20px 0 0 120px;
 }
 /* un-collapse container using '::after' */
 .container-knobs::after {
