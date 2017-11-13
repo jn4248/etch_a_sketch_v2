@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Title</title>
+    <title>Etch-a-Sketch</title>
     <link href="css/normalize-necolas.css" rel="stylesheet" type="text/css">
     <!--<link href="css/reset-meyer.css" rel="stylesheet" type="text/css">-->
     <link href="css/master.css" rel="stylesheet" type="text/css">
@@ -14,23 +14,23 @@
   </head>
 
   <body>
-    <div class="container-app-main">
-      <header class="centered-content">
-        <h1 class="title-main no-margin">MAGIC<span class="title-main-large"> Etch-a-Sketch </span>SCREEN</h1>
+    <div class="container-app-main noise">
+      <header class="control-panel-title-main centered-content">
+        <h1 class="title-main no-margin noise">MAGIC<span class="title-main title-main-large noise">Etch A Sketch</span>SCREEN</h1>
       </header>
 
       <div id="js-controlPanelTop" class="control-panel-top centered-content">
-        <button id="js-onButton" class="button-control button-control-small shadow-effect" type="button" data-alreadyclicked="no">On / Reset</button>
-        <button id="js-offButton" class="button-control button-control-small shadow-effect" type="button">Off</button>
-        <button id="js-clearGridButton" class="button-control button-control-small shadow-effect" type="button">Clear</button>
-        <button id="js-eraseButton" class="button-control button-control-large shadow-effect" type="button">Erase On / Off</button>
-        <button id="js-setDefaultColorButton" class="button-control button-control-large shadow-effect" type="button">Change Canvas Color</button>
+        <button id="js-onButton" class="button-control button-control-small shadow-effect noise" type="button" data-alreadyclicked="false">On / Reset</button>
+        <button id="js-offButton" class="button-control button-control-small shadow-effect noise" type="button">Off</button>
+        <button id="js-clearGridButton" class="button-control button-control-small shadow-effect noise" type="button">Clear</button>
+        <button id="js-eraseButton" class="button-control button-control-large shadow-effect noise" type="button">Erase On / Off</button>
+        <button id="js-setDefaultColorButton" class="button-control button-control-large shadow-effect noise" type="button">Change Canvas Color</button>
       </div>
 
       <div class="container-app-drawing">
-        <div id="js-controlPanelLeft" class="control-panel-left centered-content red-gradient">
-          <div class="control-panel-title">
-            <p class="title-colors no-margin">Select Drawing Color</p>
+        <div id="js-controlPanelLeft" class="control-panel-left centered-content red-gradient noise">
+          <div class="container-title-color-menu">
+            <p class="title-color-menu no-margin">Select Drawing Color</p>
           </div>
 
           <div id="js-buttonContainerLeft"></div>
@@ -39,17 +39,17 @@
 
         <div id="js-gridContainer" class="container-grid"></div>
 
-        <div id="js-controlPanelRight" class="control-panel-right centered-content red-gradient">
-          <div class="control-panel-title">
-            <p class="title-colors no-margin">Select Canvas Color</p>
+        <div id="js-controlPanelRight" class="control-panel-right centered-content red-gradient noise">
+          <div class="container-title-color-menu">
+            <p class="title-color-menu no-margin">Select Canvas Color</p>
           </div>
           <div id="js-buttonContainerRight"></div>
           <!-- Buttons for Default Color Selection are created dynamically via JavaScript with createColorButtons() -->
         </div>
       </div>
-      <footer class="container-knobs">
-        <div class="knob knob-left shadow-effect"></div>
-        <div class="knob knob-right shadow-effect"></div>
+      <footer class="container-knobs noise">
+        <div class="knob knob-left shadow-effect noise"></div>
+        <div class="knob knob-right shadow-effect noise"></div>
       </footer>
     </div>
     <script src="scripts/main.js"></script>

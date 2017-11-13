@@ -11,7 +11,7 @@
 /*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
 
 html, body {
-  min-width: 1280px;
+  /*min-width: 1280px;*/
 }
 
 * {
@@ -35,14 +35,23 @@ html, body {
   background-color: rgb(250, 30, 0);
   padding: 15px 140px 20px 20px;
   border: 4px solid rgba(0,0,0,0.6);
+  border-radius: 20px;
  }
  .container-app-drawing {
    width: 1120px;
    height: 1000px;
    position: relative;
  }
+ .control-panel-title-main {
+   /*height: 75px;*/
+   margin-left: 120px;
+ }
+ .container-title-color-menu {
+   height: 75px;
+ }
 .control-panel-top {
   padding: 10px 10px 20px;
+  margin-left: 120px;
 }
 .control-panel-left {
   width: 100px;
@@ -65,9 +74,6 @@ html, body {
   bottom: 0;
   z-index: 10;
   display: none;
-}
-.control-panel-title {
-  height: 75px;
 }
 .container-grid {
   width: 1000px;
@@ -153,22 +159,36 @@ html, body {
  .title-main {
    color: goldenrod;
    font-family: 'Kavivanar', cursive, serif;
-   font-size: 40px;
-   font-weight: bold;
+   font-size: 35px;
+   text-shadow: 1px 1px rgba(0,0,0,0.6);
+   letter-spacing: 2px;
+   vertical-align: middle;
    display: inline-block;
  }
  .title-main-large {
    font-family: 'Courgette', cursive, serif;
    font-size: 80px;
+   letter-spacing: 4px;
+   margin: 0 30px;
  }
- .title-colors {
+ .title-color-menu {
    color: white;
    font-family: Arial, sans-serif;
    font-size: 20px;
    font-weight: bold;
  }
+ .noise {
+   /*background-image: url(/images/noise1.png);*/
+   /*background-image: url(/images/noise2.png);*/
+   /*background-image: url(/images/noise3.png);*/
+   background-image: url(/images/noise4.png);
+ }
 .red-gradient {
   background: linear-gradient(rgb(250, 30, 0), rgb(250, 130, 100), rgb(250, 220, 220), rgb(250, 130, 100), rgb(250, 30, 0));
+  /*background: linear-gradient(rgb(250, 30, 0), rgb(250, 90, 60), rgb(250, 180, 150), rgb(250, 90, 60), rgb(250, 30, 0));*/
+  /*background: radial-gradient(rgb(250, 220, 220) 20%, rgb(250, 30, 0) 80%);*/
+
+
 }
 .shadow-effect {
   box-shadow: 7px 7px rgba(0,0,0,0.6);

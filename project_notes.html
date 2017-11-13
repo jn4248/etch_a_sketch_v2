@@ -13,26 +13,15 @@
 
 = add optional 10% alpha-grading: (Optional): Instead of just changing the color of your grid from black to white (for example), have each pass through it with the mouse change to a completely random RGB value. Then try having each pass just add another 10% of black to it, so only after 10 passes is the square completely black.
 = mouse skips if moves too fast ???
-= set 'erase" toggle as a data-erase-status instead of a global variable? (ie: on erase button?  i think that's right....check...)
 = erase button: make it show "Erase On" when toggled on and "Erase Off" when off
 = new button to show instructions as a hidden drop down screen?  might have trouble with z-index...how can I bring to front so doesn't squish rest of info (don't want to make everything relative/absolute like i did for the set-default-color menu).  If I do this, I could make the top section smaller, and maybe fit all on the screen better)
-= can use "toggle" method for class, or anything else?  colors?  add / remove, with cases to check, may be safer...in case an error somewhere in code causes a flip-flop
-= ternary operator anywhere else?  condition ? true-case : false-case;
-= inactive buttons when off?  make a sketchIsOn() function: use in button handlers (change what I did for erase) so that buttons only work when machine is on: erase, setDefault, show/select color?  (not sure if I want to apply it to show/select drawing color...could be messy...)
-=for onButton, both on button and in handler (line 107), try to change data variable to actual boolean true/false instead of 'yes'/'no' strings...see if you can be sure it's coming through as a boolean and not a sting ( true/false instead of 'true'/'false') ... may be that you can only store strings...I"m not sure, look it up: search: data() for html elements
-= still have 3 globabl variables: eraseOn and backgrounColor may be able to be moved elsewhere....OR...set up a wrapper for whole javascript;;
 = wrap entire javascript as a function() or namespace (look it up) to 'protect' against global variables.  IF I do this, do I still use (document).ready()....at top?
-= look for repeat calls to the DOM, and set a variable instead of using repeat calls, like $('.tiles-container')
 
 
 
 
 //////////////  BEAUTIFICATIN / SPACING  ///////////////////
-= center the control buttons (is title centered?)
-= add a texture over the plastic part of the toy/app...ie not the screen...so if screen is red, it looks different.
-= format title...shadow? or some other effect? check to see how it goes with the texture that should be on the entire game.
 = review css code - wher am I adding margins/padding...on containers or eleemnts? consistent? on the right elements?
-= improve border on buttons, better highlighting (to work over both light and dark colors)...double borders?  outline doesn't work because outline forms on outer square box of div, and NOT the rounded courners
 = go through and clarify names used for variables (can simplify and organize/group code better?)
 
 
