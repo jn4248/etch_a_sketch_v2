@@ -146,11 +146,14 @@ $(document).ready(function() {
     // only toggle erase if the 'machine' is "on"
     if ($('#js-onButton').hasClass('button-control-highlighted')) {
       toggleEraseOnStatus();
-      // toggle hightlight of button
+      let eraseButton = $(this);
+      // add/remove hightlight of erase button, and set button text to show status
       if (getEraseOnStatus()) {
-        $(this).addClass('button-control-highlighted');
+        eraseButton.addClass('button-control-highlighted');
+        eraseButton.text('Erase ON');
       } else {
-        $(this).removeClass('button-control-highlighted');
+        eraseButton.removeClass('button-control-highlighted');
+        eraseButton.text('Erase OFF');
       }
     }
   });

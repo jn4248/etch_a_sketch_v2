@@ -180,15 +180,11 @@ html, body {
  .noise {
    /*background-image: url(/images/noise1.png);*/
    /*background-image: url(/images/noise2.png);*/
-   /*background-image: url(/images/noise3.png);*/
-   background-image: url(/images/noise4.png);
+   background-image: url(/images/noise3.png);
+   /*background-image: url(/images/noise4.png);*/
  }
 .red-gradient {
   background: linear-gradient(rgb(250, 30, 0), rgb(250, 130, 100), rgb(250, 220, 220), rgb(250, 130, 100), rgb(250, 30, 0));
-  /*background: linear-gradient(rgb(250, 30, 0), rgb(250, 90, 60), rgb(250, 180, 150), rgb(250, 90, 60), rgb(250, 30, 0));*/
-  /*background: radial-gradient(rgb(250, 220, 220) 20%, rgb(250, 30, 0) 80%);*/
-
-
 }
 .shadow-effect {
   box-shadow: 7px 7px rgba(0,0,0,0.6);
