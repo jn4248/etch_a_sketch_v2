@@ -1,34 +1,22 @@
-/**  Adjusting Widthof entrie app:
-  *     - box-sizing is 'border-box', so must account padding/margins in containers.
-  *     - Main app width is set on html (min-width) and .container-app-main.
-  *     - margin on .container-main-app
-  *     - width of .container-main-drawing (houses .control-panel-left and .container-grid)
-  *     - width of .control-panel-left and .container-grid
-  *     - (height: footer is outside of .container-app-main to not include bacground gradient)
-
-*/
-
-/*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
 
 html, body {
-  /*min-width: 1280px;*/
+  min-width: 1280px;
 }
 
 * {
   box-sizing: border-box;
-  /*border: 1px solid lawngreen;*/
 }
 
 /* CSS Variables to use with javascript */
 :root {
   /* to handle user input of grid size - default of 4*/
-  --numRows: 2;
-  --numColumns: 2;
+  --numRows: 4;
+  --numColumns: 4;
 }
 
 
 /**
-  * Containers rgba(0,0,0,0.6)and Panels (areas)
+  * Containers and Panels (areas)
   */
 .container-app-main {
   width: 1280px;
@@ -43,7 +31,6 @@ html, body {
    position: relative;
  }
  .control-panel-title-main {
-   /*height: 75px;*/
    margin-left: 120px;
  }
  .container-title-color-menu {
@@ -65,7 +52,7 @@ html, body {
 .control-panel-right {
   width: 120px;
   height: 100%;
-  border-color: rgb(250, 30, 0); /* can't use padding - background is grid */
+  border-color: rgb(250, 30, 0);
   border-style: solid;
   border-left-width: 20px;
   position: absolute;
@@ -109,7 +96,6 @@ html, body {
 .tile {
   grid-column-start: auto;
   grid-row-start: auto;
-  /*border: 1px solid rgb(0, 0, 0);*/
 }
 .button-control {
   font-size: 18px;
@@ -117,7 +103,6 @@ html, body {
   font-weight: bold;
   background-color: white;
   border: 2px solid darkgrey;
-  /*padding: 5px;*/
   border-radius: 2px;
   margin: 0 10px;
   vertical-align: middle;
@@ -178,13 +163,14 @@ html, body {
    font-weight: bold;
  }
  .noise {
-   /*background-image: url(/images/noise1.png);*/
-   /*background-image: url(/images/noise2.png);*/
    background-image: url(/images/noise3.png);
-   /*background-image: url(/images/noise4.png);*/
  }
 .red-gradient {
-  background: linear-gradient(rgb(250, 30, 0), rgb(250, 130, 100), rgb(250, 220, 220), rgb(250, 130, 100), rgb(250, 30, 0));
+  background: linear-gradient(rgb(250, 30, 0),
+                              rgb(250, 130, 100),
+                              rgb(250, 220, 220),
+                              rgb(250, 130, 100),
+                              rgb(250, 30, 0));
 }
 .shadow-effect {
   box-shadow: 7px 7px rgba(0,0,0,0.6);
