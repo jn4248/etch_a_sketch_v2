@@ -5,6 +5,7 @@ html, body {
 
 * {
   box-sizing: border-box;
+  border: 1px solid lawngreen;
 }
 
 /* CSS Variables to use with javascript */
@@ -104,16 +105,17 @@ html, body {
   background-color: white;
   border: 2px solid darkgrey;
   border-radius: 2px;
+  padding: 7px 15px;
   margin: 0 10px;
   vertical-align: middle;
 }
 .button-control-small {
-  height: 40px;
-  width: 120px;
+  /*height: 40px;*/
+  /*width: 110px;*/
 }
 .button-control-large {
-  height: 40px;
-  width: 220px;
+  /*height: 40px;*/
+  /*width: 210px;*/
 }
 .button-color {
   height: 50px;

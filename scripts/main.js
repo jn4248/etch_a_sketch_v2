@@ -3,8 +3,24 @@ $(document).ready(function() {
 
   let mouseStillDown = false;  /*keeps track of mousebutton position for drawing*/
   let eraseOn = false;         /*tracks toggle state of 'erase' button. erase is off to begin.*/
+  let alphaOn = false;         /*tracks toggle state of 'alpha' button. alpha coloring is off to begin*/
   let gridBackgroundColor = 'white'  /*used to set intitial grid background color in createGrid()*/
-  let availableColors = ['white', 'yellow', 'orange', 'pink', 'red', 'lightblue', 'blue', 'lawngreen', 'green', 'indigo', 'saddlebrown', 'lightgrey', 'grey', 'black'];
+  // let availableColors = ['white', 'yellow', 'orange', 'pink', 'red', 'lightblue', 'blue', 'lawngreen', 'green', 'indigo', 'saddlebrown', 'lightgrey', 'grey', 'black'];
+  let availableColors = ['white',
+                          'yellow',
+                          'orange',
+                          'pink',
+                          'red',
+                          'lightblue',
+                          'blue',
+                          'lawngreen',
+                          'green',
+                          'indigo',
+                          'saddlebrown',
+                          'lightgrey',
+                          'grey',
+                          'black'];
+
 
   /*Code Executed at Page Loading - creates the 2 color button menus*/
   createColorButtons($('#js-buttonContainerLeft'), availableColors);
@@ -18,7 +34,50 @@ $(document).ready(function() {
   }
 
   function toggleEraseOnStatus() {
-    eraseOn = eraseOn ? false : true;  /* ternary operator: condition ? case-true : case-false */
+    eraseOn = eraseOn ? false : true;
+  }
+
+  /**
+   * get and toggle methods for global variable alphaOn.
+   */
+  function getAlphaOnStatus() {
+    return alphaOn;
+  }
+
+  function toggleAlphaOnStatus() {
+    alphaOn = alphaOn ? false : true;
+  }
+
+  /**
+   * Increase value for alpha data attribute by 0.1
+   * Param: currentTile     tile element (div)
+   */
+  function increaseAlpha(currentTile) {
+    let currentAlpha = parseFloat(currentTile.data('alpha'));
+    let juke = currentTile.data('tilecolor');
+    console.log('increasing alpha');
+
+    console.log('tilecolor data type is of type:');
+    console.log(typeof juke);
+    console.log('value is: ' + juke);
+
+    console.log('alpha data type is of type:');
+    console.log(typeof currentAlpha);
+    console.log('value is: ' + currentAlpha);
+    if (currentAlpha < 1.0) {
+      console.log('alpha was less than 1.0');
+      let newAlpha = currentAlpha + 0.1;
+      currentTile.data('alpha', newAlpha);
+    }
+    console.log('end of increase');
+  }
+
+  /**
+   * Decrease value for alpha data attribute by 0.1
+   * Param: currentTile     tile element (div)
+   */
+  function decreaseAlpha(currentTile) {
+
   }
 
   /**
@@ -87,7 +146,8 @@ $(document).ready(function() {
 
   /**
    * Create the grid of tiles on which to draw.
-   * note: requires use of css variables (declared in ::root at top of master.css file).
+   * note: Requires use of css variables (declared in ::root at top of master.css file).
+   * note: Called/created in the Event Handler for the "on" button.
    *
    * Param: gridSize            Number of rows/columns in the grid (Number)
    * Param: backgroundColor     Color of the container background (named Color)
@@ -103,7 +163,7 @@ $(document).ready(function() {
     document.documentElement.style.setProperty("--numColumns", gridSize);
     /*create the grid of tiles*/
     let numTiles = gridSize * gridSize;
-    let newTile = $('<div data-tilecolor="none"></div>').addClass('tile');
+    let newTile = $('<div data-tilecolor="none" data-alpha="0.5"></div>').addClass('tile');
     for (let i = 0; i < numTiles; i++) {
       grid1.append(newTile.clone(true));  /*'true' clones data AND eventHandlers*/
     }
@@ -157,6 +217,7 @@ $(document).ready(function() {
       /*highlight tile if erase button is not activated: "false"*/
       let newColor = $('#js-buttonContainerLeft').find('.button-color-selected').first().attr('name');
       highlightElement(currentTile, newColor);
+      increaseAlpha(currentTile);
     }
   }
 
@@ -167,7 +228,8 @@ $(document).ready(function() {
     event.preventDefault();
     let onButton = $(this);
     /*prompt user for number of rows/columns*/
-    let numRows = promptGridSize();  /*returns -1 if user cancels prompt*/
+    // let numRows = promptGridSize();  /*returns -1 if user cancels prompt*/
+    let numRows = 16;
     /*create grid if prompt was a valid grid size.*/
     if (numRows > 0) {
       if (onButton.data('alreadyclicked') === 'true') {
@@ -235,6 +297,27 @@ $(document).ready(function() {
       } else {
         eraseButton.removeClass('button-control-highlighted');
         eraseButton.text('Erase OFF');
+      }
+    }
+  });
+
+  /**
+   * Event Handler for button to toggle "alpha" on/off.
+   * Only functions if the 'on' button is activated.
+   */
+  $('#js-alphaButton').on('click', function(event) {
+    event.preventDefault();
+    /*only toggle alpha if the 'on' button is activated*/
+    if ($('#js-onButton').hasClass('button-control-highlighted')) {
+      toggleAlphaOnStatus();
+      let alphaButton = $(this);
+      /*add/remove hightlight of alpha button, and update button text*/
+      if (getAlphaOnStatus()) {
+        alphaButton.addClass('button-control-highlighted');
+        alphaButton.text('Alpha Coloring ON');
+      } else {
+        alphaButton.removeClass('button-control-highlighted');
+        alphaButton.text('Alpha Coloring OFF');
       }
     }
   });
