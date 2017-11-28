@@ -14,11 +14,19 @@ Whether 'Erase' is on or off, tiles will only increase/decrease in opacity when 
 
 Changes:
 
-1. Colors are now tracked as rgba colors. For each tile, the rgb color is tracked by attribute data-tilecolor, and the alpha is kept in data-alpha.
+1. Instead of changing colors to rgba, and using the alpha to control the shading, css property opacity was used.  Opacity is only being applied to tile elements, and there are no child elements coupled to the tiles.  Also, this allows usage of the already-existing css 'hilighted' color classes, by simply adding 10 more 'opacity' classes in css.  Left naming in javascript as 'alpha' despite actually controlling opacity.
 
 2. Removed size classes for dimensions on main control buttons (top), in favor of simply adding uniform padding on each control button.  More natural look, though not all the same size, and allows for variance of font size on different browsers.
 
-3. 
+3. Removed global variable gridBackgroundColor (set initial background color grid, so that it was not dependent on the order of the colors in the array availableColors).  Set the color (white) in the 'on' button event handler, with a check to use that color ONLY on the first time it is called.  Successive calls should use whichever color is stored in the tiles-container element.
+
+4. Added additional color parameter to createColorButtons() to account for having different initially selected colros for each panel.  No longer need to use global variable gridBackgroundColor to handle this, and also no longer need get/set/getColorClass functions for the gridBackgroundColor variable.
+
+5. Changed function highlightElement() to addColorClass() to be similar with existing removeColorClass().
+
+6. 
+
+
 
 
 
