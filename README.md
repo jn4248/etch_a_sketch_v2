@@ -14,18 +14,30 @@ Whether 'Erase' is on or off, tiles will only increase/decrease in opacity when 
 
 Changes:
 
-1. Instead of changing colors to rgba, and using the alpha to control the shading, css property opacity was used.  Opacity is only being applied to tile elements, and there are no child elements coupled to the tiles.  Also, this allows usage of the already-existing css 'hilighted' color classes, by simply adding 10 more 'opacity' classes in css.  Left naming in javascript as 'alpha' despite actually controlling opacity.
+1. Instead of changing colors to rgba, and using the alpha to control the shading, css property opacity was used.  Opacity is only being applied to tile elements, and there are no child elements coupled to the tiles.  Also, this allows usage of the already-existing css 'highlighted' color classes, by simply adding 10 more 'opacity' classes in css.  Left naming in javascript as 'alpha' despite actually controlling opacity.
 
 2. Removed size classes for dimensions on main control buttons (top), in favor of simply adding uniform padding on each control button.  More natural look, though not all the same size, and allows for variance of font size on different browsers.
 
-3. Removed global variable gridBackgroundColor (set initial background color grid, so that it was not dependent on the order of the colors in the array availableColors).  Set the color (white) in the 'on' button event handler, with a check to use that color ONLY on the first time it is called.  Successive calls should use whichever color is stored in the tiles-container element.
+3. Removed global variable gridBackgroundColor (set initial background color grid, so that it was not dependent on the order of the colors in the array availableColors).  Set the color (white) in the 'on' button event handler, with a check to use that color ONLY on the first time it is called.  Successive calls should use whichever color is currently selected in the background color menu panel.
 
 4. Added additional color parameter to createColorButtons() to account for having different initially selected colros for each panel.  No longer need to use global variable gridBackgroundColor to handle this, and also no longer need get/set/getColorClass functions for the gridBackgroundColor variable.
 
-5. Changed function highlightElement() to addColorClass() to be similar with existing removeColorClass().
+5. Changed function highlightElement() to addColorClass() to be similar with existing removeColorClass(), and introduced addOpacityClass() and removeOpacityClass() functions.  Key difference is that adding a color class also takes a 'color' parameter, and  updates the data attribute 'tilecolor' for the element, whereas the alpha/opacity data attribute is updated outside of the add/remove functions for opacity.
 
-6. 
+6. removed function removeColorClass() from addColorClass() and called each separately in drawOnTile() (and other locations in code) as necessary.  
 
+7. Changed default canvas color from background color of container, to the actual tiles. Tiles are now set with initial color and opacity attributes, and respective classes added, as defined in createGrid() function.
+
+8. Set the underlying background color for the grid container in createGrid().  This color is autmoatically updated with changes to the currently selected background color for the drawing grid via the dropdown menu.  This color becomes the default background color when alpha-coloring is applied to tiles.  
+
+9. Added various get/set methods, increase/decrease methods to update opacity, add/remove methods for classes.
+
+
+Factors accepted in this version, that could be changed in a later version:
+
+1. When applying alpha-coloring in a color different than what already exists, the pre-existing color is simply removed completely, instead of becoming the background color for the new alpha-coloring.  This is because the entire grid container can only be set to one background color (which is the color that shows through the tiles that have partial opacity).  To allow alpha-coloring over a pre-exising tile coloring, and have that be unique for each tile, there would have to be multiple layers to the grid...11 layers, given the current opacity gradients of 10% increments. (0, 10, ... 90, 100).  This is out of the scope of this version.
+
+2. With a few exceptions, opted to make calls to the DOM rather than use global variables in javascript.  2 variables were tracked via html data attributes (tilecolor and opacity/alpha).  Speed could probably be improved for grids with higher number of rows/columns.
 
 
 

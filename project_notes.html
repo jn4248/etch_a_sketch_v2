@@ -10,8 +10,6 @@
 
 /////////////    FUNCTIONALITY ISSUES - IMPORTANT  /////////////////////////
 
-= add optional 10% alpha-grading: (Optional): Instead of just changing the color of your grid from black to white (for example), have each pass through it with the mouse change to a completely random RGB value. Then try having each pass just add another 10% of black to it, so only after 10 passes is the square completely black.
-
 = mouse skips if moves too fast ???
 
 = new button to show instructions as a hidden drop down screen?  might have trouble with z-index...how can I bring to front so doesn't squish rest of info (don't want to make everything relative/absolute like i did for the set-default-color menu).  If I do this, I could make the top section smaller, and maybe fit all on the screen better)
@@ -20,16 +18,26 @@
 
 = cursor will highlight text if you mouse-click and hold to draw, and then accidentally go out of the drawing grid and over text.  it is a common fix to find.
 
-= could create tile Objects, and have set methods to change the states of the ojbects?  might be able to use numbers instead of strings for data, and not have to concatenate to form 'rgba(0,0,0,1.0)' etc...but might have to keep track of the objcets? not sure if it's any better...other than for encapsulation and security.
-
 = try to make drawOnTile() method more elegant?
 
-= !!!!! - to decrease opacity from an existing fully opaque background, have to exist as tiles (in background color) and not just a single background color on the tiles-container element.  otherwise, can only change opacity on tiles that have been colored in.  
+
+= would help in draw to?? 1. have a getCurrentColor(tile) class (or anywhere for that matter?) or getCurrentOpacity(tile) -
+   idea: could check if opactiy is 0 or 100 first before adding/removing...
+   maybe: getCurrentDrawColor (as well as already have getGridBackgroundColor....could change name to backgroundcolor...no longer the color of the grid)
+
+= see if there are get/set/helper methods that I've created, that I"m not actually using in the code  (eg: getGridBackgroundColorClass())
+
+= set createGrid() to set bacground on grid container to current backgorund color. then, have setting backgournd color also change the grid container background.  Should still go to the "grey" when the off button is pressed....yes, it should, because the BG is in the tile container, which is removed when 'off' button is pressed.
+
+=reset prompt to take user input.
 
 
 ///////////  VISUAL / BEUTIFICATION   /////////////////////////////////////
 = button size changes when clicked (erase and alpha), because no fixed dimensions, and text is changing. ('on' to 'off'). looks bad because ALL buttons are moving on the control panel. check code I used for top navigation bar on my first google page (i got code from internet...)
-=
+
+settle on "alpha" or "opacity" ...some things written in opacity, some in alpha.
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 

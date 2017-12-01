@@ -43,52 +43,14 @@ $(document).ready(function() {
   function toggleAlphaOnStatus() {
     alphaOn = alphaOn ? false : true;
   }
-
   /**
-   * Increase value for alpha data attribute by 0.1
+   * Get method for the currently selected Drawing Color.
    *
-   * Param: currentTile     tile element (div)
+   * Returns:  named color of currently selected drawing color button   (String)
    */
-  function increaseAlpha(currentTile) {
-    let currentAlpha = currentTile.data('alpha');
-    console.log('increasing alpha');
-    console.log('alpha data type is of type: ' + typeof currentAlpha);
-    console.log('value is: ' + currentAlpha);
-    if (currentAlpha < 100) {
-      console.log('alpha was less than 100');
-      let newAlpha = currentAlpha + 10;
-      currentTile.data('alpha', newAlpha);
-    }
-    console.log('end of increase');
-  }
-
-  /**
-   * Decrease value for alpha data attribute by 0.1
-   *
-   * Param: currentTile     tile element (div)
-   */
-  function decreaseAlpha(currentTile) {
-    let currentAlpha = currentTile.data('alpha');
-    console.log('increasing alpha');
-    console.log('alpha data type is of type: ' + typeof currentAlpha);
-    console.log('value is: ' + currentAlpha);
-    if (currentAlpha > 0) {
-      console.log('alpha was greater than 0');
-      let newAlpha = currentAlpha - 10;
-      currentTile.data('alpha', newAlpha);
-    }
-    console.log('end of decrease');
-  }
-
-  /**
-   * Get the opacity class name for an element, based on its alpha data attributes.
-   *
-   * Param:   currentTile       Element whis is colored (usualy div)
-   *
-   * Returns:   Opacity CSS Class Name (String)
-   */
-  function getOpacityClass(currentTile) {
-    return 'opacity-' + currentTile.data('alpha');
+  function getCurrentDrawColor() {
+    let currentDrawColor = $('#js-buttonContainerLeft').find('.button-color-selected').first().attr('name')
+    return currentDrawColor;
   }
 
   /**
@@ -108,6 +70,86 @@ $(document).ready(function() {
    */
   function getGridBackgroundColorClass() {
     return 'highlighted-' + getGridBackgroundColor();
+  }
+  /**
+   * Increase value for alpha data attribute by 10 (percent)
+   *
+   * Param: currentTile     tile element (div)
+   */
+  function increaseAlpha(currentTile) {
+    let currentAlpha = parseInt(currentTile.data('alpha'));
+    if (currentAlpha <= 90) {
+      let newAlpha = currentAlpha + 10;
+      currentTile.data('alpha', newAlpha);
+    }
+  }
+
+  /**
+   * Decrease value for alpha data attribute by 10 (percent)
+   *
+   * Param: currentTile     tile element (div)
+   */
+  function decreaseAlpha(currentTile) {
+    let currentAlpha = parseInt(currentTile.data('alpha'));
+    if (currentAlpha >= 10) {
+      let newAlpha = currentAlpha - 10;
+      currentTile.data('alpha', newAlpha);
+    }
+  }
+
+  /**
+   * Get the opacity class name for an element, based on its alpha data attributes.
+   *
+   * Param:   currentTile       Element whis is colored (usualy div)
+   * Returns:   Opacity CSS Class Name (String)
+   */
+  function getOpacityClass(currentTile) {
+    return 'opacity-' + currentTile.data('alpha');
+  }
+
+  /**
+   * Adds highlighted color class to a tile element, and updates the data-tilecolor attribute.
+   * note: Tile elements should only have 1 color assigned at any given time.
+   *
+   * Param: currentTile    Tile element to be colored (div)
+   * Param: newColorClass         color to apply to element (String)
+   */
+  function addColorClass(currentTile, newColor) {
+    currentTile.addClass('highlighted-' + newColor);
+    currentTile.data('tilecolor', newColor);
+  }
+
+  /**
+  * Removes highlighted color class from a tile element.
+  * note: Tile elements should only have 1 color assigned at any given time.
+  * note: tilecolor data attribute is not changed inside the function.
+  *
+  * Param: currentTile    Tile element carrying a color class (div)
+  */
+  function removeColorClass(currentTile) {
+    currentTile.removeClass('highlighted-' + currentTile.data('tilecolor'));
+  }
+
+  /**
+   * Adds opacity class to a tile element, based on it's current alpha attribute.
+   * note: Tile elements should only have 1 opacity class assigned at any given time.
+   * note: alpha data attribute is not changed inside the function.
+   *
+   * Param: currentTile    Tile element to be colored (div)
+   */
+  function addOpacityClass(currentTile) {
+    currentTile.addClass('opacity-' + currentTile.data('alpha'));
+  }
+  
+  /**
+  * Removes opacity class from a tile element.
+  * note: Tile elements should only have 1 apacity class assigned at any given time.
+  * note: alpha data attribute is not changed inside the function.
+  *
+  * Param: currentTile    Tile element carrying a color class (div)
+  */
+  function removeOpacityClass(currentTile) {
+    currentTile.removeClass('opacity-' + currentTile.data('alpha'));
   }
 
   /**
@@ -165,22 +207,28 @@ $(document).ready(function() {
    * Create the grid of tiles on which to draw.
    * note: Requires use of css variables (declared in ::root at top of master.css file).
    * note: Called/created in the Event Handler for the "on" button.
+   * note: sets initial drawing grid background color and opacity.
    *
    * Param: gridSize            Number of rows/columns in the grid (Number)
    * Param: backgroundColor     Color of the container background (named Color)
    */
-  function createGrid(gridSize, backgroundColor) {
+  function createGrid(gridSize) {
     // create grid element and set default background color for canvas
     let grid1 = $('<div></div>').addClass('tiles-container');
-    grid1.hide();
     grid1.addClass(getGridBackgroundColorClass());
+    grid1.hide();
     $('#js-gridContainer').append(grid1);
     /*set css variables for number of rows and columns*/
     document.documentElement.style.setProperty("--numRows", gridSize);
     document.documentElement.style.setProperty("--numColumns", gridSize);
     /*create the grid of tiles*/
     let numTiles = gridSize * gridSize;
-    let newTile = $('<div data-tilecolor="white" data-alpha="0"></div>').addClass('tile');
+    let initialBGColor = getGridBackgroundColor();
+    let newTile = $('<div></div>').addClass('tile');
+    newTile.data('tilecolor', initialBGColor);
+    newTile.data('alpha', '100');
+    addColorClass(newTile, initialBGColor);
+    addOpacityClass(newTile);
     for (let i = 0; i < numTiles; i++) {
       grid1.append(newTile.clone(true));  /*'true' clones data AND eventHandlers*/
     }
@@ -188,72 +236,61 @@ $(document).ready(function() {
   }
 
   /**
-   * Removes highlighted color class from a drawing element.
-   * note: Tiles are initialized with data-tilecolor attribute of "none" in createGrid().
-   * note: Drawing elements can only have 1 color assigned at any given time.
-   *
-   * Param: currentDrawElement    html element carrying a color class (usually a div)
-   */
-  function removeColorClass(currentDrawElement) {
-    let currentColor = currentDrawElement.data('tilecolor');
-    if (currentColor !== 'none') {
-      let currentColorClass = 'highlighted-' + currentColor;
-      currentDrawElement.removeClass(currentColorClass);
-      /*re-initialize data-tilecolor to 'none'*/
-      currentDrawElement.data('tilecolor', 'none');
-    }
-  }
-
-  /**
-   * Removes highlighted color class from a drawing element.
-   * note: Tiles are initialized with data-tilecolor attribute of "none" in createGrid().
-   * note: Drawing elements can only have 1 color assigned at any given time.
-   *
-   * Param: currentDrawElement    html element to be colored (usually a div)
-   * Param: newColorClass         color to apply to element (String)
-   */
-  function addColorClass(currentDrawElement, newColor) {
-    if (currentDrawElement.data('tilecolor') !== 'none') {
-      removeColorClass(currentDrawElement);
-    }
-    currentDrawElement.addClass('highlighted-' + newColor);
-    currentDrawElement.data('tilecolor', newColor);
-  }
-
-  function updateOpacityClass(currentDrawElement, alpha) {
-
-  }
-
-  /**
    * Toggles "highlighted" class for a tile, to draw (color) or erase it.
+   * If 'alpha' button is 'off', drawing in a color instantly sets its opacity
+   * to 100%.
+   * If 'alpha' button is 'on', and the currently selected drawing color
+   * matches the existing tile color, then it increases/decreases the opacity of
+   * the current color by 10%, depending on whether 'erase' is active, up/down
+   * to 100%/0%..
+   * If the currently selected drawing color is different than the existing tile
+   * color, then the tile color is changed, with an initial opacity of 10% if
+   * 'erase' is off.
+   * With 'alpha' on, erase does not affect existing tiles of a color different
+   * than the currently selected drawing color.
    *
-   * Param: currentTile       html grid tile element to be colored (usually a div)
+   * Param: currentTile       html grid tile element to be colored (div)
    */
   function drawOnTile(currentTile) {
-    /*case for 'erase' and/or 'alpha' buttons are 'on': remove color/shades*/
     if (getEraseOnStatus()) {
+      /*erase button on*/
       if (getAlphaOnStatus()) {
-        decreaseAlpha(currentTile);
+        /*alpha button on: (only if tile and draw colors match) maintain color, decrease opacity*/
+        if (currentTile.data('tilecolor') === getCurrentDrawColor()) {
+          removeOpacityClass(currentTile);
+          decreaseAlpha(currentTile);
+          addOpacityClass(currentTile);
+        }
       } else {
+        /*alpha button off: change color to background color*/
         removeColorClass(currentTile);
+        addColorClass(currentTile, getGridBackgroundColor());
       }
     } else {
-      /*case for erase and/or alpha buttons are 'off': add color/shades*/
+      /*erase button off*/
       if (getAlphaOnStatus()) {
-        increaseAlpha(currentTile);
-      }
-      else {
-        let newColor = $('#js-buttonContainerLeft').find('.button-color-selected').first().attr('name');
-        addColorClass(currentTile, newColor);
+        /*alpha button on:*/
+        if (currentTile.data('tilecolor') !== getCurrentDrawColor()) {
+          /*new color: change color and set opacity to 10%*/
+          removeColorClass(currentTile);
+          addColorClass(currentTile, getCurrentDrawColor());
+          removeOpacityClass(currentTile);
+          /*set the starting opacity on a tile that is changing color*/
+          currentTile.data('alpha', '10');
+          addOpacityClass(currentTile);
+        } else {
+          /*same color: increase opacity*/
+          removeOpacityClass(currentTile);
+          increaseAlpha(currentTile);
+          addOpacityClass(currentTile);
+        }
+      } else {
+        /*alpha button off: change color*/
+        removeColorClass(currentTile);
+        addColorClass(currentTile, getCurrentDrawColor());
       }
     }
   }
-// PROBLEM: IN ALPHA CASE, (BOTH IN/DE), COLOR NEEDS TO BE CHANGED FIRST TIME, BUT NOT IN REPEATED TIMES...
-//           OR, COULD ADD COLOR CLASS EVERYTIME ALPHA CHANGED, BUT IS UNNECESSARY. MIGHT BE EASIER/QUICKER
-//           THAN ACTUALLY CHECKING TO SEE IF IT'S THE FIRST TIME OR NOT.
-//          ALSO: NOT ACTUALLY ADDING THE OPACITY CLASSES. NEED ADD/REMOVE CLASSES? SHOULD BE DONE IN INCREASE/DECREASE?
-//          ALSO: CHECK THE REMOVE/ADD OF COLOR CLASS (METHODS).
-
 
   /**
    * Event Handler for button to Turn On and Reset the main drawing grid.
@@ -272,7 +309,7 @@ $(document).ready(function() {
         onButton.data('alreadyclicked', 'true');
         onButton.addClass('button-control-highlighted');
       }
-      createGrid(numRows, getGridBackgroundColor());
+      createGrid(numRows);
     }
   });
 
@@ -298,18 +335,24 @@ $(document).ready(function() {
   });
 
   /**
-  * Event Handler for button to reset all grid tiles show background color.
+  * Event Handler for button to reset all grid tiles to the current background
+  * color, and reset the opacity to 100%.
   * note: Maintains current grid and grid size.
   */
   $('#js-clearGridButton').on('click', function(event) {
     event.preventDefault();
     /*only run the code if the grid exists*/
+    let currentBackgroundColor = getGridBackgroundColor();
     if ($('.tiles-container').length) {
       $('.tile').each(function() {
         let currentTile = $(this);
-        if (currentTile.data('tilecolor') !== 'none') {
+        if (currentTile.data('tilecolor') !== currentBackgroundColor) {
           removeColorClass(currentTile);
+          addColorClass(currentTile, currentBackgroundColor);
         }
+        removeOpacityClass(currentTile);
+        currentTile.data('alpha', '100');
+        addOpacityClass(currentTile);
       });
     }
   });
@@ -360,24 +403,39 @@ $(document).ready(function() {
    * Event Handler for button to open the menu panel to select the backround color.
    * note: Does not actually change the background color.
    */
-  $('#js-setDefaultColorButton').on('click', function(event) {
+  $('#js-setBGColorButton').on('click', function(event) {
     event.preventDefault();
     $('#js-controlPanelRight').slideToggle(500);
   });
 
   /**
-   * Event Handler for button to select the backround color (un-colored tiles),
-   * and close the selection menu panel.
+   * Event Handler for button to select the backround color for both the tiles,
+   * and the tile container (background for the alpha-coloring), and close the
+   * selection menu panel.
    * note: Menu panel is opened by another event handler.
    */
   $('#js-buttonContainerRight').on('click', '.button-color', function(event) {
     event.preventDefault();
-    let newBackgroundColor = $(this).attr('name');
-    // If grid exists (at least one tile exists) update any existing tiles of default color
-    let tileContainer = $('.tiles-container');
-    if (tileContainer.length) {
-      addColorClass(tileContainer, newBackgroundColor);
+    currentColorButton = $(this);
+    let currentBackgroundColor = getGridBackgroundColor();
+    let newBackgroundColor = currentColorButton.attr('name');
+    /*If grid exists (at least one tile exists) update any existing tiles of background color*/
+    let tilesContainer = $('.tiles-container');
+    if (tilesContainer.length) {
+      $('.tile').each(function() {
+        let currentTile = $(this);
+        if (currentTile.data('tilecolor') === currentBackgroundColor) {
+          removeColorClass(currentTile);
+          addColorClass(currentTile, newBackgroundColor);
+        }
+      });
+      /*also update the container background to handle the alpha-coloring bg*/
+      removeColorClass(tilesContainer);
+      addColorClass(tilesContainer, newBackgroundColor);
     }
+    /*update the new color button to be selected*/
+    $('#js-buttonContainerRight').find('.button-color-selected').removeClass('button-color-selected');
+    currentColorButton.addClass('button-color-selected');
     /*close the default color selection panel*/
     $('#js-controlPanelRight').slideToggle(500);
   });
@@ -389,8 +447,9 @@ $(document).ready(function() {
    */
   $('#js-buttonContainerLeft').on('click','.button-color', function(event) {
     event.preventDefault();
-    $('.button-color-selected').removeClass('button-color-selected');
-    $(this).addClass('button-color-selected');
+    let currentColorButton = $(this);
+    $('#js-buttonContainerLeft').find('.button-color-selected').removeClass('button-color-selected');
+    currentColorButton.addClass('button-color-selected');
   });
 
 
