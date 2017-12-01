@@ -5,7 +5,6 @@ html, body {
 
 * {
   box-sizing: border-box;
-  border: 1px solid lawngreen;
 }
 
 /* CSS Variables to use with javascript */
@@ -25,6 +24,8 @@ html, body {
   padding: 15px 140px 20px 20px;
   border: 4px solid rgba(0,0,0,0.6);
   border-radius: 20px;
+  margin-left: 30px;
+  margin-top: 30px;
  }
  .container-app-drawing {
    width: 1120px;
@@ -38,7 +39,7 @@ html, body {
    height: 75px;
  }
 .control-panel-top {
-  padding: 10px 10px 20px;
+  padding: 10px 0 20px;
   margin-left: 120px;
 }
 .control-panel-left {
@@ -99,23 +100,15 @@ html, body {
   grid-row-start: auto;
 }
 .button-control {
-  font-size: 18px;
+  font-size: 16px;
   color: red;
   font-weight: bold;
   background-color: white;
   border: 2px solid darkgrey;
-  border-radius: 2px;
-  padding: 7px 15px;
-  margin: 0 10px;
+  border-radius: 4px;
+  padding: 10px 8px;
+  margin: 0 8px;
   vertical-align: middle;
-}
-.button-control-small {
-  /*height: 40px;*/
-  /*width: 110px;*/
-}
-.button-control-large {
-  /*height: 40px;*/
-  /*width: 210px;*/
 }
 .button-color {
   height: 50px;
