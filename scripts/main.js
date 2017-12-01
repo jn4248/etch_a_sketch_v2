@@ -198,7 +198,7 @@ $(document).ready(function() {
    */
   function promptGridSize() {
     let invalidInput = true;
-    let answer = prompt('Please enter the number of rows/columns, as a positive integer (suggested: 200 or below):', '60');
+    let answer = prompt('Please enter the number of rows/columns, as a positive integer (suggested: 100 or below):', '60');
     let gridSize = parseFloat(answer);
     while (invalidInput) {
       if ((answer === null) || (answer === '')) {
@@ -209,7 +209,7 @@ $(document).ready(function() {
         invalidInput = false;
         return gridSize;
       } else {
-        answer = prompt('Incorrect format entered.  Please enter the number of rows/columns, as a positive integer (suggested: 200 or below):', '60');
+        answer = prompt('Incorrect format entered.  Please enter the number of rows/columns, as a positive integer (suggested: 100 or below):', '60');
         gridSize = parseFloat(answer);
       }
     }
