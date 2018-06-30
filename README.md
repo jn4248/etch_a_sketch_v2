@@ -1,4 +1,4 @@
-# etch_a_sketch_ver2
+# etch_a_sketch_v2
 
 This is an in-browser sketchpad, somewhat like an etch-a-sketch, managed by javaScript and jQuery.  This is a project to focus mainly on using jQuery, following instructions from The Odin Project.
 
